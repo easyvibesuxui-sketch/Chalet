@@ -155,13 +155,12 @@
 
   /* --- hero choreography ------------------------------------------------ */
   var STAGES = [
-    [0.00, '01', 'BLUEPRINT'],
-    [0.22, '02', 'STRUCTURE'],
-    [0.45, '03', 'STONE & LARCH'],
-    [0.68, '04', 'GLASS & WARMTH'],
-    [0.88, '05', 'HOME']
+    [0.00, 'BLUEPRINT'],
+    [0.22, 'STRUCTURE'],
+    [0.45, 'STONE & LARCH'],
+    [0.68, 'GLASS & WARMTH'],
+    [0.88, 'HOME']
   ];
-  var elStageNum = document.getElementById('stageNum');
   var elStageName = document.getElementById('stageName');
   var elHeroRail = document.getElementById('heroRail');
   var elCue = document.getElementById('heroCue');
@@ -186,8 +185,7 @@
       if (!REDUCED) for (var i = 0; i < STAGES.length; i++) if (p >= STAGES[i][0]) s = i;
       if (s !== lastStage) {
         lastStage = s;
-        if (elStageNum) elStageNum.textContent = STAGES[s][1];
-        if (elStageName) elStageName.textContent = STAGES[s][2];
+        if (elStageName) elStageName.textContent = STAGES[s][1];
       }
       if (elHeroRail && !REDUCED) elHeroRail.style.width = (p * 100).toFixed(2) + '%';
       if (elCue) elCue.classList.toggle('is-gone', p > 0.04);
@@ -511,9 +509,7 @@
      14 · REDUCED MOTION — resolve the villa, skip the scrub
      --------------------------------------------------------------------- */
   if (REDUCED) {
-    var last = STAGES[STAGES.length - 1];
-    if (elStageNum) elStageNum.textContent = last[1];
-    if (elStageName) elStageName.textContent = last[2];
+    if (elStageName) elStageName.textContent = STAGES[STAGES.length - 1][1];
     if (elHeroRail) elHeroRail.style.width = '100%';
     if (elCue) elCue.classList.add('is-gone');
     lastStage = STAGES.length - 1;
