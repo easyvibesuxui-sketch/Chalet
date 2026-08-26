@@ -11,8 +11,8 @@
 <meta property="og:image" content="assets/img/stage-5-home.webp" />
 <link rel="stylesheet" href="assets/css/fonts.css" />
 <link rel="stylesheet" href="assets/css/style.css" />
-<link rel="preload" as="font" type="font/woff2" href="assets/fonts/archivo-100-900.woff2" crossorigin />
-<link rel="preload" as="font" type="font/woff2" href="assets/fonts/inter-100-900.woff2" crossorigin />
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/bodoni-moda-400-900.woff2" crossorigin />
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/manrope-200-800.woff2" crossorigin />
 <link rel="preload" as="image" href="assets/frames/f001.webp" />
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%230B1410'/><path d='M6 20L16 9l10 11' stroke='%23E8B563' stroke-width='2.2' fill='none' stroke-linejoin='round'/><path d='M9 20v5h14v-5' stroke='%23A8BFA4' stroke-width='2' fill='none'/></svg>" />
 </head>
@@ -63,15 +63,28 @@
 
 <main id="top">
 
-<!-- ============ 01 · HERO — SCROLL-SCRUBBED FRAME SEQUENCE ============ -->
-<!-- The sequence NEVER plays on its own. Every frame is driven by scroll position. -->
-<section class="hero" id="hero" data-scrub-track>
-  <div class="hero__track">
-    <div class="hero__stage">
-      <canvas id="heroCanvas" class="hero__canvas" aria-hidden="true"></canvas>
-      <img class="hero__fallback" id="heroFallback" src="assets/frames/f001.webp" alt="An alpine villa drawn as a blueprint that resolves into a finished stone-and-timber chalet in the snow." />
-      <div class="hero__grain" aria-hidden="true"></div>
-      <div class="hero__vignette" aria-hidden="true"></div>
+<!-- ============ THE FILM — one scroll-scrubbed sequence behind three sections
+     The source clip is decoded to stills and painted on a single pinned canvas.
+     Nothing plays on its own: a frame is only ever drawn for a scroll position.
+     ========================================================================= -->
+<div class="film" id="film">
+  <div class="film__bg" aria-hidden="true">
+    <div class="film__pin">
+      <canvas id="heroCanvas" class="film__canvas"></canvas>
+      <img class="film__fallback" id="heroFallback" src="assets/frames/f001.webp" alt="" />
+      <div class="film__scrim" id="filmScrim"></div>
+      <div class="film__grain"></div>
+      <div class="film__hud" aria-hidden="true">
+          <div class="hero__stagelabel"><span class="hero__stagename" id="stageName">BLUEPRINT</span></div>
+          <div class="hero__rail"><span id="heroRail"></span></div>
+          <div class="hero__cue" id="heroCue"><span>SCROLL TO BUILD</span><i></i></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="film__content">
+
+    <section class="reel reel--hero" id="hero">
 
       <div class="hero__type">
         <p class="eyebrow eyebrow--light" data-hero="eyebrow">ALPINE VILLA ATELIER — EST. 1998</p>
@@ -92,44 +105,26 @@
         <p class="hero__panel-copy">Every CHALET villa begins as a single ink line on paper and ends as a warm room at 1 800 metres. Hand-cut larch, quarried stone, and glass engineered for the coldest night of the year.</p>
         <a class="link-more" href="#atelier"><span>KNOW MORE</span><i aria-hidden="true"></i></a>
       </div>
+    </section>
 
-      <div class="hero__hud" aria-hidden="true">
-        <div class="hero__stagelabel"><span class="hero__stagename" id="stageName">BLUEPRINT</span></div>
-        <div class="hero__rail"><span id="heroRail"></span></div>
-        <div class="hero__cue" id="heroCue"><span>SCROLL TO BUILD</span><i></i></div>
-      </div>
-    </div>
-  </div>
-</section>
+    <section class="reel reel--manifesto" id="atelier">
+      <div class="shell">
 
-<!-- ============ 02 · SCROLL-DRIVEN TICKER ============ -->
-<section class="ticker" aria-hidden="true">
-  <div class="ticker__row" data-ticker="1">
-    <span>COZY LUXURY VILLAS<i>◆</i>HAND-CUT LARCH<i>◆</i>QUARRIED STONE<i>◆</i>1 800 M ALTITUDE<i>◆</i>TRIPLE GLAZING<i>◆</i>SNOW-LOAD ENGINEERED<i>◆</i></span>
-    <span>COZY LUXURY VILLAS<i>◆</i>HAND-CUT LARCH<i>◆</i>QUARRIED STONE<i>◆</i>1 800 M ALTITUDE<i>◆</i>TRIPLE GLAZING<i>◆</i>SNOW-LOAD ENGINEERED<i>◆</i></span>
-  </div>
-</section>
-
-<!-- ============ 03 · MANIFESTO ============ -->
-<section class="manifesto" id="atelier">
-  <div class="shell">
     <p class="eyebrow" data-reveal>THE ATELIER</p>
     <p class="manifesto__text" data-split="line">
-      We build houses that hold heat, light and quiet. A CHALET villa is not a hotel suite dropped on a slope — it is a <em>slow, warm, deliberate</em> home, cut for its own valley, its own weather, and the family that will wake up in it.
+      We build houses that hold heat, light and quiet. A CHALET villa is not a hotel suite dropped on a slope <span class="emdash">—</span> it is a <em>slow, warm, deliberate</em> home, cut for its own valley, its own weather, and the family that will wake up in it.
     </p>
     <div class="manifesto__meta">
       <div data-reveal data-delay="0"><span class="k">Founded</span><span class="v">Chamonix, 1998</span></div>
       <div data-reveal data-delay="80"><span class="k">Discipline</span><span class="v">Design · Engineering · Build</span></div>
       <div data-reveal data-delay="160"><span class="k">Valleys</span><span class="v">Mont-Blanc · Valais · Dolomites</span></div>
     </div>
-  </div>
-</section>
+      </div>
+    </section>
 
-<!-- ============ 04 · GLASS PANEL / ABOUT NATURE ============ -->
-<section class="about" id="about">
-  <div class="about__bg" data-parallax="0.14"><img src="https://images.unsplash.com/photo-1642638966040-547114e05439?auto=format&fit=crop&w=1200&h=1600&q=80" data-slot="forest-edge" alt="" aria-hidden="true" /></div>
-  <div class="about__tint" aria-hidden="true"></div>
-  <div class="shell about__shell">
+    <section class="reel reel--about" id="about">
+      <div class="shell reel__shell">
+
     <div class="glass glass--soft about__frame" data-reveal="clip">
       <div class="about__inner">
         <h2 class="about__title" data-split="word">About<br />the Mountain</h2>
@@ -143,8 +138,19 @@
         </div>
       </div>
     </div>
+      </div>
+    </section>
+
   </div>
-  <p class="about__vertical" aria-hidden="true">N&nbsp;A&nbsp;T&nbsp;U&nbsp;R&nbsp;E&nbsp;&nbsp;F&nbsp;I&nbsp;R&nbsp;S&nbsp;T</p>
+
+</div>
+
+<!-- ============ 02 · SCROLL-DRIVEN TICKER ============ -->
+<section class="ticker" aria-hidden="true">
+  <div class="ticker__row" data-ticker="1">
+    <span>COZY LUXURY VILLAS<i>◆</i>HAND-CUT LARCH<i>◆</i>QUARRIED STONE<i>◆</i>1 800 M ALTITUDE<i>◆</i>TRIPLE GLAZING<i>◆</i>SNOW-LOAD ENGINEERED<i>◆</i></span>
+    <span>COZY LUXURY VILLAS<i>◆</i>HAND-CUT LARCH<i>◆</i>QUARRIED STONE<i>◆</i>1 800 M ALTITUDE<i>◆</i>TRIPLE GLAZING<i>◆</i>SNOW-LOAD ENGINEERED<i>◆</i></span>
+  </div>
 </section>
 
 <!-- ============ 05 · STATS ============ -->

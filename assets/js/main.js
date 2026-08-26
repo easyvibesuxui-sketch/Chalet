@@ -145,7 +145,8 @@
 
   var scrubber = null;
   var canvas = document.getElementById('heroCanvas');
-  var heroTrack = document.querySelector('.hero__track');
+  var film = document.getElementById('film');
+  var filmScrim = document.getElementById('filmScrim');
 
   if (canvas && canvas.getContext) {
     scrubber = new Scrubber(canvas);
@@ -171,11 +172,11 @@
   var panel = document.querySelector('[data-hero="panel"]');
   var lastStage = -1;
 
-  if (heroTrack) {
+  if (film) {
     onScroll(function () {
-      var r = heroTrack.getBoundingClientRect();
+      var r = film.getBoundingClientRect();
       if (r.bottom < -vh || r.top > vh) return;   // off-screen: skip work
-      var p = trackProgress(heroTrack);
+      var p = trackProgress(film);
 
       /* Reduced motion: the villa is shown finished, never scrubbed. */
       if (scrubber && !REDUCED) scrubber.seek(p);
@@ -190,20 +191,28 @@
       if (elHeroRail && !REDUCED) elHeroRail.style.width = (p * 100).toFixed(2) + '%';
       if (elCue) elCue.classList.toggle('is-gone', p > 0.04);
 
+      /* The clip opens on white drafting paper. Wash it down hard at the start
+         and lift the wash as the villa itself gets dark, so the type keeps its
+         contrast the whole way through. */
+      if (filmScrim) {
+        filmScrim.style.setProperty('--wash', (0.60 - clamp(p, 0, 1) * 0.44).toFixed(3));
+      }
+
       if (REDUCED) return;
 
       /* type drifts apart and clears the frame as the villa resolves */
-      var t = clamp(p / 0.72, 0, 1);
+      /* the wordmark clears the frame across the first reel only */
+      var t = clamp(p / 0.30, 0, 1);
       var ease = t * t;
-      if (w1) w1.style.transform = 'translate3d(' + (-ease * 16) + 'vw,' + (-ease * 26) + 'vh,0)';
-      if (w2) w2.style.transform = 'translate3d(' + (ease * 18) + 'vw,' + (-ease * 22) + 'vh,0)';
+      if (w1) w1.style.transform = 'translate3d(' + (-ease * 14) + 'vw,' + (-ease * 22) + 'vh,0)';
+      if (w2) w2.style.transform = 'translate3d(' + (ease * 16) + 'vw,' + (-ease * 19) + 'vh,0)';
       if (scr) {
-        scr.style.transform = 'translate3d(0,' + (-ease * 24) + 'vh,0)';
+        scr.style.transform = 'translate3d(0,' + (-ease * 20) + 'vh,0)';
         scr.style.opacity = String(clamp(1 - t * 1.4, 0, 1));
       }
-      if (eyeb) eyeb.style.opacity = String(clamp(1 - p / 0.18, 0, 1));
+      if (eyeb) eyeb.style.opacity = String(clamp(1 - p / 0.07, 0, 1));
 
-      var pp = clamp((p - 0.06) / 0.42, 0, 1);
+      var pp = clamp((p - 0.03) / 0.17, 0, 1);
       if (panel) {
         panel.style.transform = 'translate3d(0,' + (pp * 34) + 'px,0)';
         panel.style.opacity = String(1 - pp);

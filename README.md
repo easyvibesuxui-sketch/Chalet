@@ -8,7 +8,7 @@ page makes are the Unsplash photos it hotlinks. Open `index.html` and it runs.
 
 ---
 
-## The hero: a video that only moves when you scroll
+## The film: three sections over one scrubbed sequence
 
 > **No autoplay.** There is no `<video>` element, no timer and no playback loop anywhere in this
 > project. The source clip was decoded into **80 still frames** (`assets/frames/f001…f080.webp`)
@@ -17,7 +17,18 @@ page makes are the Unsplash photos it hotlinks. Open `index.html` and it runs.
 
 The clip runs a villa from ink blueprint to finished winter chalet, so the scrub doubles as the
 company's story: scroll down and you literally build the house. A read-out in the corner tracks the
-stage — `01 BLUEPRINT → 02 STRUCTURE → 03 STONE & LARCH → 04 GLASS & WARMTH → 05 HOME`.
+stage — `BLUEPRINT → STRUCTURE → STONE & LARCH → GLASS & WARMTH → HOME`.
+
+The sequence is not just the hero. `.film` holds three full-height reels — the wordmark, the
+manifesto and the About panel — that scroll across one continuous take. `.film__bg` is absolutely
+positioned over the wrapper and only its inner `.film__pin` is sticky. That detail matters: putting
+`margin-bottom: -100vh` on the sticky element itself (the usual overlay trick) extends its sticky
+range by exactly that amount, and the sequence then paints a whole viewport past the wrapper, over
+the sections below.
+
+The clip opens on white drafting paper and ends on a night exterior, so the scrim's `--wash` is
+driven from scroll — heavy at the start to sink the paper into the page, nearly gone by the time
+the villa is lit.
 
 **Loading strategy:** frames load in a coarse-to-fine order (every 8th, then every 4th, then the
 rest) with 6 requests in flight. The scrub becomes usable after ~24 frames; until a frame has
@@ -115,10 +126,18 @@ register their parent as a `data-clip-group` and the parent releases the whole r
 `prefers-reduced-motion: reduce` collapses the hero track to 150vh, skips the scrub entirely and
 paints the **finished** villa, and resolves every reveal to its final state. Nothing is animation-gated.
 
-## Design notes
+## Design notes — Deep Frost
 
-Palette is deep forest / moss / lichen / bone with a lit-window amber accent. Type is Archivo
-(display), Inter (body), DM Mono (labels) and Instrument Serif italic for the one script accent.
+Near-black grounds (`#05090A` → `#121C1E`) carrying a cyan-green bias, so the neutrals belong to
+the accent rather than sitting under it. Ice (`#9DB8B4`) does the talking; ember (`#C0703A`) is
+spent only where we want a click.
+
+Type is Bodoni Moda for display, Manrope for body, JetBrains Mono for labels, and Bodoni's own
+italic for the one script accent. A Didone needs the opposite tracking to a grotesque, so every
+negative letter-spacing in the stylesheet was opened back up to roughly zero. Bodoni's hairlines
+also thin out badly over photography, which is why the manifesto runs at weight 600 and the one
+em-dash inside it is set in the body face — as a hairline it disappeared into the film entirely.
+
 The frosted-glass panels, vertical side text, oversized blended display type and pill buttons come
 from the supplied UI references.
 

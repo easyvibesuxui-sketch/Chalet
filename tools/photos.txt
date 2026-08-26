@@ -10,7 +10,6 @@ villa-wing     3:4   photo-1520974752130-0eef002d8d3f  hlp7Alc3MHs   Yannic Lade
 villa-garden   4:3   photo-1522071500372-f0fd8c452178  MMh57gXsTug   Annie Spratt       anniespratt
 villa-drive    4:3   photo-1550503736-c1a2c9033c03     QOuV-iMpL_w   Patrick R Doyle    teapowered
 villa-pool     4:3   photo-1615011950300-ffd3dcfc509f  spBJSPLeA0k   Jamie Fenn         jamie_fenn
-forest-edge    3:4   photo-1642638966040-547114e05439  CnpN4TVqOx0   Sarah Janes        sjanesphotos
 ridge-line    16:9   photo-1515345022855-c81dd983fe04  ov6QNr4fZcQ   Zbynek Burival     zburival
 detail-timber  4:5   photo-1608632035933-990a32cf74c2  ieUYKZOT11g   the blowup         theblowup
 detail-stone   4:5   photo-1657401972566-6679de283e1b  yzzGrk9Wjfc   Philippa Lowe      palohills
