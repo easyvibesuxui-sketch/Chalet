@@ -54,6 +54,25 @@ If you change the count, update `FRAME_COUNT` at the top of `assets/js/main.js`.
 | 14 | Contact | validated demo form (nothing is sent anywhere) |
 | 15 | Footer | outlined wordmark with parallax |
 
+## Swapping in your own photography
+
+The section imagery is currently cut from the source clip. To replace it with
+Unsplash photos, list them in `tools/photos.txt` (one line per slot: slot name,
+target aspect, photo URL or id) and run:
+
+```sh
+tools/fetch-unsplash.sh                          # download what the file names
+UNSPLASH_ACCESS_KEY=… tools/fetch-unsplash.sh --search   # or fill blanks by search
+```
+
+It centre-crops each photo to the aspect its slot is designed for, encodes WebP
+into `assets/img/`, triggers the Unsplash download endpoint their API guidelines
+require, and writes attribution to `CREDITS.md`. Only the public Access Key is
+ever needed — never the Secret Key. Requires `ffmpeg`, `curl` and `jq`.
+
+The five `stage-*` frames stay as they are: they are the blueprint-to-house
+sequence, and stock photography cannot tell that story.
+
 ## Files
 
 ```

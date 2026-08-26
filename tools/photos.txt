@@ -1,0 +1,26 @@
+# CHALET — image slots
+#
+# One line per slot:   <slot>  <crop>  <unsplash-photo-url-or-id>  # search hint
+#
+# <slot>  the file written to assets/img/<slot>.webp — the names the page uses
+# <crop>  target aspect the slot is designed for; the script centre-crops to it
+#
+# Paste an Unsplash photo URL (https://unsplash.com/photos/slug-ID) or a bare ID
+# in the third column. Lines whose third column is "-" are skipped and the file
+# already in assets/img/ is kept.
+
+villa-gable      3:4   -    # alpine chalet facade, gable glazing, winter
+villa-wing       3:4   -    # timber chalet wing at the forest edge, snow
+villa-garden     4:3   -    # mountain villa garden under snow
+villa-drive      4:3   -    # chalet arrival court / driveway in winter
+villa-pool       4:3   -    # heated outdoor pool at a chalet, snow around it
+forest-edge      3:4   -    # dense snowy pine forest (About section backdrop)
+ridge-line      16:5   -    # alpine ridge line at dusk (Contact backdrop)
+detail-timber    4:5   -    # larch / weathered timber cladding, close up
+detail-stone     4:5   -    # dry-laid stone wall, close up
+detail-glass     4:5   -    # warm-lit chalet window from outside at dusk
+
+# The five `stage-*` frames and `blueprint-wide` are the blueprint-to-house
+# sequence cut from the source clip. Stock photos cannot tell that story, so
+# they are deliberately not listed here. Add them yourself if you want them
+# replaced too.
