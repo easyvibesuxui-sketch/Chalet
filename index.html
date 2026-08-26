@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>CHALET — Cozy Luxury Villas in the Mountains</title>
+<meta name="description" content="CHALET is an alpine villa atelier. We draw, engineer and build cozy luxury villas at altitude — hand-cut larch, quarried stone and light that lasts all winter." />
+<meta name="theme-color" content="#0B1410" />
+<meta property="og:title" content="CHALET — Cozy Luxury Villas in the Mountains" />
+<meta property="og:description" content="From the first blueprint line to the first fire lit. Alpine villa atelier since 1998." />
+<meta property="og:image" content="assets/img/stage-5-home.webp" />
+<link rel="stylesheet" href="assets/css/fonts.css" />
+<link rel="stylesheet" href="assets/css/style.css" />
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/archivo-100-900.woff2" crossorigin />
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/inter-100-900.woff2" crossorigin />
+<link rel="preload" as="image" href="assets/frames/f001.webp" />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%230B1410'/><path d='M6 20L16 9l10 11' stroke='%23E8B563' stroke-width='2.2' fill='none' stroke-linejoin='round'/><path d='M9 20v5h14v-5' stroke='%23A8BFA4' stroke-width='2' fill='none'/></svg>" />
+</head>
+<body>
+
+<!-- ============ SCROLL PROGRESS ============ -->
+<div class="scroll-rail" aria-hidden="true"><span id="scrollRail"></span></div>
+
+<!-- ============ PRELOADER ============ -->
+<div class="loader" id="loader" role="status" aria-live="polite">
+  <div class="loader__inner">
+    <div class="loader__mark">
+      <svg viewBox="0 0 64 44" aria-hidden="true"><path class="lm-roof" d="M4 30 32 5l28 25" /><path class="lm-body" d="M12 30v11h40V30" /><path class="lm-door" d="M28 41v-8h8v8" /></svg>
+    </div>
+    <p class="loader__label">CHALET — ALPINE VILLA ATELIER</p>
+    <div class="loader__bar"><span id="loaderBar"></span></div>
+    <p class="loader__pct"><span id="loaderPct">0</span>%<span class="loader__hint">drawing the blueprint</span></p>
+  </div>
+</div>
+
+<!-- ============ NAV ============ -->
+<header class="nav" id="nav">
+  <a class="nav__logo" href="#top" aria-label="CHALET home">
+    <svg class="nav__logomark" viewBox="0 0 64 44" aria-hidden="true"><path d="M4 30 32 5l28 25" /><path d="M12 30v11h40V30" /><path d="M28 41v-8h8v8" /></svg>
+    <span>CHALET</span>
+  </a>
+  <nav class="nav__links" aria-label="Primary">
+    <a href="#atelier">Atelier</a>
+    <a href="#process">Process</a>
+    <a href="#villas">Villas</a>
+    <a href="#collections">Collections</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  <div class="nav__right">
+    <label class="searchpill">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></svg>
+      <input type="search" placeholder="Search villas, valleys…" aria-label="Search villas" />
+    </label>
+    <a class="btn btn--solid nav__cta" href="#contact"><span>Book a call</span></a>
+    <button class="nav__burger" id="burger" aria-label="Open menu" aria-expanded="false"><i></i><i></i></button>
+  </div>
+</header>
+
+<div class="drawer" id="drawer" aria-hidden="true">
+  <a href="#atelier">Atelier</a><a href="#process">Process</a><a href="#villas">Villas</a>
+  <a href="#materials">Materials</a><a href="#collections">Collections</a><a href="#contact">Contact</a>
+</div>
+
+<main id="top">
+
+<!-- ============ 01 · HERO — SCROLL-SCRUBBED FRAME SEQUENCE ============ -->
+<!-- The sequence NEVER plays on its own. Every frame is driven by scroll position. -->
+<section class="hero" id="hero" data-scrub-track>
+  <div class="hero__track">
+    <div class="hero__stage">
+      <canvas id="heroCanvas" class="hero__canvas" aria-hidden="true"></canvas>
+      <img class="hero__fallback" id="heroFallback" src="assets/frames/f001.webp" alt="An alpine villa drawn as a blueprint that resolves into a finished stone-and-timber chalet in the snow." />
+      <div class="hero__grain" aria-hidden="true"></div>
+      <div class="hero__vignette" aria-hidden="true"></div>
+
+      <div class="hero__type">
+        <p class="eyebrow eyebrow--light" data-hero="eyebrow">ALPINE VILLA ATELIER — EST. 1998</p>
+        <h1 class="hero__title">
+          <span class="hero__line"><span class="hero__word hero__word--blend" data-hero="w1">MOUNTAIN</span></span>
+          <span class="hero__line hero__line--2">
+            <em class="hero__script" data-hero="script">cozy</em>
+            <span class="hero__word hero__word--solid" data-hero="w2">HOME</span>
+          </span>
+        </h1>
+      </div>
+
+      <p class="hero__vertical" aria-hidden="true">A&nbsp;L&nbsp;P&nbsp;I&nbsp;N&nbsp;E&nbsp;&nbsp;&nbsp;A&nbsp;T&nbsp;E&nbsp;L&nbsp;I&nbsp;E&nbsp;R</p>
+
+      <div class="glass hero__panel" data-hero="panel">
+        <p class="eyebrow">DISCOVER VILLAS</p>
+        <h2>We draw it in winter.<br />You live in it by the next one.</h2>
+        <p class="hero__panel-copy">Every CHALET villa begins as a single ink line on paper and ends as a warm room at 1 800 metres. Hand-cut larch, quarried stone, and glass engineered for the coldest night of the year.</p>
+        <a class="link-more" href="#atelier"><span>KNOW MORE</span><i aria-hidden="true"></i></a>
+      </div>
+
+      <div class="hero__hud" aria-hidden="true">
+        <div class="hero__stagelabel"><span class="hero__stagenum" id="stageNum">01</span><span class="hero__stagename" id="stageName">BLUEPRINT</span></div>
+        <div class="hero__rail"><span id="heroRail"></span></div>
+        <div class="hero__cue" id="heroCue"><span>SCROLL TO BUILD</span><i></i></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 02 · SCROLL-DRIVEN TICKER ============ -->
+<section class="ticker" aria-hidden="true">
+  <div class="ticker__row" data-ticker="1">
+    <span>COZY LUXURY VILLAS<i>◆</i>HAND-CUT LARCH<i>◆</i>QUARRIED STONE<i>◆</i>1 800 M ALTITUDE<i>◆</i>TRIPLE GLAZING<i>◆</i>SNOW-LOAD ENGINEERED<i>◆</i></span>
+    <span>COZY LUXURY VILLAS<i>◆</i>HAND-CUT LARCH<i>◆</i>QUARRIED STONE<i>◆</i>1 800 M ALTITUDE<i>◆</i>TRIPLE GLAZING<i>◆</i>SNOW-LOAD ENGINEERED<i>◆</i></span>
+  </div>
+</section>
+
+<!-- ============ 03 · MANIFESTO ============ -->
+<section class="manifesto" id="atelier">
+  <div class="shell">
+    <p class="eyebrow" data-reveal>[ 01 ] THE ATELIER</p>
+    <p class="manifesto__text" data-split="line">
+      We build houses that hold heat, light and quiet. A CHALET villa is not a hotel suite dropped on a slope — it is a <em>slow, warm, deliberate</em> home, cut for its own valley, its own weather, and the family that will wake up in it.
+    </p>
+    <div class="manifesto__meta">
+      <div data-reveal data-delay="0"><span class="k">Founded</span><span class="v">Chamonix, 1998</span></div>
+      <div data-reveal data-delay="80"><span class="k">Discipline</span><span class="v">Design · Engineering · Build</span></div>
+      <div data-reveal data-delay="160"><span class="k">Valleys</span><span class="v">Mont-Blanc · Valais · Dolomites</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 04 · GLASS PANEL / ABOUT NATURE ============ -->
+<section class="about" id="about">
+  <div class="about__bg" data-parallax="0.14"><img src="assets/img/forest-edge.webp" alt="" aria-hidden="true" /></div>
+  <div class="about__tint" aria-hidden="true"></div>
+  <div class="shell about__shell">
+    <div class="glass glass--soft about__frame" data-reveal="clip">
+      <div class="about__inner">
+        <h2 class="about__title" data-split="word">About<br />the Mountain</h2>
+        <span class="rule"></span>
+        <p>The mountain is not a backdrop; it is the first client. Before a single line is drawn we spend four seasons on the plot — tracking sun angles, snow drift, wind corridors and the exact hour the valley goes gold.</p>
+        <p>What we hand back is a villa that belongs there: low, warm, generous with glass where the view earns it, and closed where the north wind arrives.</p>
+        <div class="about__actions">
+          <a class="btn btn--solid" href="#process"><span>Our method</span></a>
+          <a class="btn btn--ghost" href="#villas"><span>See villas</span></a>
+          <span class="about__note">Connect with the mountain</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <p class="about__vertical" aria-hidden="true">N&nbsp;A&nbsp;T&nbsp;U&nbsp;R&nbsp;E&nbsp;&nbsp;F&nbsp;I&nbsp;R&nbsp;S&nbsp;T</p>
+</section>
+
+<!-- ============ 05 · STATS ============ -->
+<section class="stats">
+  <div class="shell stats__grid">
+    <div class="stat" data-reveal><span class="stat__num" data-count="143">0</span><span class="stat__k">Villas delivered</span></div>
+    <div class="stat" data-reveal data-delay="90"><span class="stat__num" data-count="27">0</span><span class="stat__k">Years at altitude</span></div>
+    <div class="stat" data-reveal data-delay="180"><span class="stat__num" data-count="1840" data-suffix=" m">0</span><span class="stat__k">Average build height</span></div>
+    <div class="stat" data-reveal data-delay="270"><span class="stat__num" data-count="98" data-suffix="%">0</span><span class="stat__k">Clients who refer us</span></div>
+  </div>
+</section>
+
+<!-- ============ 06 · PROCESS — STICKY STACKING CARDS ============ -->
+<section class="process" id="process">
+  <div class="shell process__head">
+    <p class="eyebrow" data-reveal>[ 02 ] FROM BLUEPRINT TO HOME</p>
+    <h2 class="h2" data-split="word">Five winters of drawing, one lifetime of living</h2>
+  </div>
+  <div class="stack" id="stack">
+    <article class="stack__card" data-card="0">
+      <div class="stack__media"><img src="assets/img/stage-1-blueprint.webp" alt="Blueprint elevation of the villa" loading="lazy" /></div>
+      <div class="stack__body">
+        <span class="stack__num">01</span>
+        <h3>Survey &amp; blueprint</h3>
+        <p>Four seasons on the plot, a topographic scan, and an ink elevation drawn by hand before anything is digitised. We only draw what the slope allows.</p>
+        <ul><li>Site &amp; snow-drift study</li><li>Sun-path modelling</li><li>Hand elevation + 3D massing</li></ul>
+      </div>
+    </article>
+    <article class="stack__card" data-card="1">
+      <div class="stack__media"><img src="assets/img/stage-2-structure.webp" alt="Timber structure emerging from the drawing" loading="lazy" /></div>
+      <div class="stack__body">
+        <span class="stack__num">02</span>
+        <h3>Structure raised</h3>
+        <p>A glulam and solid-larch frame cut in our Valais workshop, numbered, trucked up the pass and raised in eleven days — often between two snowfalls.</p>
+        <ul><li>Off-site precision cutting</li><li>Snow-load engineering to 4.5 kN/m²</li><li>Zero-waste timber yield</li></ul>
+      </div>
+    </article>
+    <article class="stack__card" data-card="2">
+      <div class="stack__media"><img src="assets/img/stage-3-materials.webp" alt="Stone and timber materials being applied" loading="lazy" /></div>
+      <div class="stack__body">
+        <span class="stack__num">03</span>
+        <h3>Stone &amp; skin</h3>
+        <p>Stone quarried within forty kilometres, laid dry by two masons. Larch cladding left raw so the façade silvers with the valley instead of against it.</p>
+        <ul><li>Local quarry sourcing</li><li>Dry-stone columns &amp; hearth</li><li>Untreated silvering larch</li></ul>
+      </div>
+    </article>
+    <article class="stack__card" data-card="3">
+      <div class="stack__media"><img src="assets/img/stage-4-envelope.webp" alt="Glazing and warm interior light appearing" loading="lazy" /></div>
+      <div class="stack__body">
+        <span class="stack__num">04</span>
+        <h3>Envelope &amp; warmth</h3>
+        <p>Triple glazing with a warm-edge spacer, 340 mm of wood-fibre insulation and floor loops fed by ground-source heat. The house holds its temperature for days.</p>
+        <ul><li>Passive-grade airtightness</li><li>Ground-source underfloor heat</li><li>Heat-recovery ventilation</li></ul>
+      </div>
+    </article>
+    <article class="stack__card" data-card="4">
+      <div class="stack__media"><img src="assets/img/stage-5-home.webp" alt="The finished chalet in winter with lit windows" loading="lazy" /></div>
+      <div class="stack__body">
+        <span class="stack__num">05</span>
+        <h3>Keys &amp; first fire</h3>
+        <p>We hand over with the hearth lit, the beds made and the ski room stocked. Then we come back every autumn for twenty years to check the timber.</p>
+        <ul><li>Furnished handover</li><li>20-year façade care</li><li>Year-round caretaking</li></ul>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ============ 07 · HORIZONTAL VILLA GALLERY ============ -->
+<section class="hgal" id="villas">
+  <div class="hgal__track">
+    <div class="hgal__stage">
+      <div class="hgal__head">
+        <p class="eyebrow eyebrow--light">[ 03 ] SELECTED VILLAS</p>
+        <p class="hgal__hint" aria-hidden="true">DRAG THE SCROLL →</p>
+      </div>
+      <div class="hgal__rowwrap"><div class="hgal__row" id="hgalRow">
+        <article class="vcard">
+          <div class="vcard__img"><img src="assets/img/villa-gable.webp" alt="Villa Larix gable and glazing" loading="lazy" /></div>
+          <div class="vcard__meta"><h3>Villa Larix</h3><span>Chamonix · 1 640 m · 420 m²</span></div>
+        </article>
+        <article class="vcard vcard--wide">
+          <div class="vcard__img"><img src="assets/img/villa-garden.webp" alt="Villa Solveig garden wing in snow" loading="lazy" /></div>
+          <div class="vcard__meta"><h3>Villa Solveig</h3><span>Verbier · 1 920 m · 510 m²</span></div>
+        </article>
+        <article class="vcard">
+          <div class="vcard__img"><img src="assets/img/villa-wing.webp" alt="Villa Firn forest wing and garage court" loading="lazy" /></div>
+          <div class="vcard__meta"><h3>Villa Firn</h3><span>Zermatt · 2 080 m · 380 m²</span></div>
+        </article>
+        <article class="vcard vcard--wide">
+          <div class="vcard__img"><img src="assets/img/villa-drive.webp" alt="Villa Marmot arrival court" loading="lazy" /></div>
+          <div class="vcard__meta"><h3>Villa Marmot</h3><span>Cortina · 1 510 m · 460 m²</span></div>
+        </article>
+        <article class="vcard">
+          <div class="vcard__img"><img src="assets/img/villa-pool.webp" alt="Villa Edelweiss heated plunge terrace" loading="lazy" /></div>
+          <div class="vcard__meta"><h3>Villa Edelweiss</h3><span>Hafjell · 1 200 m · 340 m²</span></div>
+        </article>
+        <article class="vcard vcard--next">
+          <div class="vcard__img"><img src="assets/img/blueprint-wide.webp" alt="An unbuilt blueprint waiting for its owner" loading="lazy" /></div>
+          <div class="vcard__meta"><h3>Villa — untitled</h3><span>Your valley · your altitude</span></div>
+          <a class="btn btn--ghost btn--sm" href="#contact"><span>Start the drawing</span></a>
+        </article>
+      </div></div>
+      <div class="hgal__rail" aria-hidden="true"><span id="hgalRail"></span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 08 · MATERIALS ============ -->
+<section class="materials" id="materials">
+  <div class="shell">
+    <p class="eyebrow" data-reveal>[ 04 ] THREE MATERIALS, NOTHING ELSE</p>
+    <h2 class="h2" data-split="word">Larch, stone, glass — and the light between them</h2>
+    <div class="mat__grid">
+      <article class="mat" data-reveal="clip" data-delay="0">
+        <div class="mat__img" data-parallax="0.08"><img src="assets/img/detail-timber.webp" alt="Larch beams and glazing under the gable" loading="lazy" /></div>
+        <span class="mat__idx">M/01</span><h3>Silvering larch</h3>
+        <p>Slow-grown, untreated, mounted on an open rain-screen. It arrives honey-gold and settles into the same silver as the rock behind it.</p>
+      </article>
+      <article class="mat" data-reveal="clip" data-delay="120">
+        <div class="mat__img" data-parallax="0.12"><img src="assets/img/detail-stone.webp" alt="Dry-laid stone wall and wall lamp" loading="lazy" /></div>
+        <span class="mat__idx">M/02</span><h3>Quarried stone</h3>
+        <p>Split, never sawn. Every column and hearth is laid dry by hand, so the wall keeps the grain and the shadow of the mountain it came from.</p>
+      </article>
+      <article class="mat" data-reveal="clip" data-delay="240">
+        <div class="mat__img" data-parallax="0.10"><img src="assets/img/detail-glass.webp" alt="Triple-glazed window wall lit from inside" loading="lazy" /></div>
+        <span class="mat__idx">M/03</span><h3>Deep-winter glass</h3>
+        <p>Triple-glazed, argon-filled, warm-edge. Big enough to hold the whole ridge line, tight enough that the room stays 21° at minus twenty.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 09 · INTERIOR SPLIT (STICKY MEDIA) ============ -->
+<section class="split" id="interior">
+  <div class="shell split__grid">
+    <div class="split__media">
+      <div class="split__frame">
+        <img src="assets/img/detail-timber.webp" alt="The great room seen through the gable glazing" data-parallax="0.06" />
+        <div class="glass split__tag"><span class="dot"></span>Villa Larix · great room</div>
+      </div>
+    </div>
+    <div class="split__copy">
+      <p class="eyebrow" data-reveal>[ 05 ] INSIDE</p>
+      <h2 class="h2 h2--sm" data-split="word">Cozy is an engineering decision</h2>
+      <div class="feat" data-reveal><span class="feat__n">01</span><div><h3>Heated stone floors</h3><p>Ground-source loops under 60 mm of quarry stone. The floor is the radiator, and it stays warm through the night.</p></div></div>
+      <div class="feat" data-reveal data-delay="90"><span class="feat__n">02</span><div><h3>Double-height hearth</h3><p>A dry-laid chimney that runs the full section of the house, so the mass of the stone releases heat long after the fire is out.</p></div></div>
+      <div class="feat" data-reveal data-delay="180"><span class="feat__n">03</span><div><h3>Ski room &amp; boot dryers</h3><p>A heated arrival room by the garage court — skis, boots and gloves dry by morning without ever entering the living space.</p></div></div>
+      <div class="feat" data-reveal data-delay="270"><span class="feat__n">04</span><div><h3>Spa &amp; plunge terrace</h3><p>A sheltered, snow-lipped pool held at 36°, with the ridge line at eye level and nothing between you and it.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 10 · VALLEYS / DRAWN RIDGE ============ -->
+<section class="valleys" id="valleys">
+  <div class="shell">
+    <p class="eyebrow" data-reveal>[ 06 ] WHERE WE BUILD</p>
+    <h2 class="h2" data-split="word">Five valleys we know by heart</h2>
+  </div>
+  <div class="ridge" id="ridge">
+    <svg viewBox="0 0 1200 340" preserveAspectRatio="none" aria-hidden="true">
+      <path class="ridge__far" d="M0 300 L120 190 L210 240 L330 120 L450 235 L560 165 L690 255 L800 140 L930 230 L1050 175 L1200 265 L1200 340 L0 340 Z" />
+      <path class="ridge__line" d="M0 300 L120 190 L210 240 L330 120 L450 235 L560 165 L690 255 L800 140 L930 230 L1050 175 L1200 265" />
+      <path class="ridge__near" d="M0 340 L160 250 L300 300 L430 215 L600 305 L760 225 L900 300 L1060 240 L1200 315 L1200 340 Z" />
+    </svg>
+    <ul class="pins">
+      <li class="pin" style="--x:11%;--y:44%" data-reveal><span></span><b>Chamonix</b><i>1 640 m</i></li>
+      <li class="pin" style="--x:29%;--y:26%" data-reveal data-delay="90"><span></span><b>Verbier</b><i>1 920 m</i></li>
+      <li class="pin" style="--x:49%;--y:38%" data-reveal data-delay="180"><span></span><b>Zermatt</b><i>2 080 m</i></li>
+      <li class="pin" style="--x:70%;--y:31%" data-reveal data-delay="270"><span></span><b>Cortina</b><i>1 510 m</i></li>
+      <li class="pin" style="--x:88%;--y:41%" data-reveal data-delay="360"><span></span><b>Hafjell</b><i>1 200 m</i></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ 11 · TESTIMONIALS ============ -->
+<section class="quotes">
+  <div class="shell">
+    <p class="eyebrow" data-reveal>[ 07 ] OWNERS</p>
+    <div class="quotes__grid">
+      <figure class="quote" data-reveal="clip">
+        <blockquote>“They spent a year watching our plot before they drew anything. The first winter in the house, we understood exactly why.”</blockquote>
+        <figcaption><b>Élise &amp; Matthieu R.</b><span>Villa Larix · Chamonix</span></figcaption>
+      </figure>
+      <figure class="quote" data-reveal="clip" data-delay="120">
+        <blockquote>“Minus twenty-two outside, twenty-one inside, and the heating had been off since lunch. That is the whole pitch, really.”</blockquote>
+        <figcaption><b>Anders K.</b><span>Villa Firn · Zermatt</span></figcaption>
+      </figure>
+      <figure class="quote" data-reveal="clip" data-delay="240">
+        <blockquote>“Eleven days from the first truck to a raised frame. Our neighbours are still talking about it four seasons later.”</blockquote>
+        <figcaption><b>The Bianchi family</b><span>Villa Marmot · Cortina</span></figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 12 · COLLECTIONS ============ -->
+<section class="plans" id="collections">
+  <div class="shell">
+    <p class="eyebrow" data-reveal>[ 08 ] COLLECTIONS</p>
+    <h2 class="h2" data-split="word">Three ways to arrive at a warm room</h2>
+    <div class="plans__grid">
+      <article class="glass plan" data-reveal="clip">
+        <h3>Refuge</h3><p class="plan__sub">180 – 260 m² · 12 months</p>
+        <p class="plan__price"><span>from</span> CHF 1.9M</p>
+        <ul><li>Two-bedroom compact villa</li><li>Timber frame + stone base</li><li>Passive-grade envelope</li><li>Furnished handover</li></ul>
+        <a class="btn btn--ghost" href="#contact"><span>Enquire</span></a>
+      </article>
+      <article class="glass plan plan--featured" data-reveal="clip" data-delay="120">
+        <span class="plan__flag">MOST BUILT</span>
+        <h3>Chalet</h3><p class="plan__sub">320 – 480 m² · 16 months</p>
+        <p class="plan__price"><span>from</span> CHF 4.4M</p>
+        <ul><li>Four to five bedrooms</li><li>Double-height hearth &amp; gable glazing</li><li>Ski room, spa, garage court</li><li>Ground-source heating</li><li>20-year façade care</li></ul>
+        <a class="btn btn--solid" href="#contact"><span>Start the drawing</span></a>
+      </article>
+      <article class="glass plan" data-reveal="clip" data-delay="240">
+        <h3>Grand Villa</h3><p class="plan__sub">520 m²+ · 22 months</p>
+        <p class="plan__price"><span>from</span> CHF 8.6M</p>
+        <ul><li>Estate-scale, multi-wing</li><li>Staff quarters &amp; wellness level</li><li>Bespoke joinery workshop run</li><li>Year-round caretaking</li></ul>
+        <a class="btn btn--ghost" href="#contact"><span>Enquire</span></a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 13 · FAQ ============ -->
+<section class="faq" id="faq">
+  <div class="shell faq__grid">
+    <div class="faq__aside">
+      <p class="eyebrow" data-reveal>[ 09 ] QUESTIONS</p>
+      <h2 class="h2 h2--sm" data-split="word">Before the first line</h2>
+      <p class="faq__note" data-reveal>Everything else, we answer on the plot — usually with boots on.</p>
+    </div>
+    <div class="faq__list">
+      <details data-reveal><summary>Do you build outside the Alps?<i aria-hidden="true"></i></summary><p>We build wherever there is real snow load and a valley worth answering to — the Alps, the Dolomites, Norway, and selected sites in the Caucasus and the Rockies. If the site needs a helicopter, we will tell you honestly what that adds.</p></details>
+      <details data-reveal data-delay="70"><summary>How long does a villa actually take?<i aria-hidden="true"></i></summary><p>Twelve to twenty-two months on site, plus four to seven months of design. We deliberately spend a full year of seasons on the plot first — that year is the reason the rest runs on schedule.</p></details>
+      <details data-reveal data-delay="140"><summary>Can we change the plan mid-build?<i aria-hidden="true"></i></summary><p>Yes, up to the point the frame is cut. After the workshop run begins, structural changes get expensive fast, so we freeze the shell and keep the interior open for as long as possible.</p></details>
+      <details data-reveal data-delay="210"><summary>Who looks after the house when we are away?<i aria-hidden="true"></i></summary><p>Our caretaking team. Snow clearing, heating checks, a lit fire and a stocked fridge before you land, and a full timber inspection every autumn for twenty years.</p></details>
+      <details data-reveal data-delay="280"><summary>Is a CHALET villa energy-efficient?<i aria-hidden="true"></i></summary><p>Every villa is built to passive-grade airtightness with 340 mm of wood-fibre insulation and ground-source heat. Typical heating demand is under 15 kWh/m² per year — roughly a tenth of a conventional chalet of the same size.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 14 · CTA / CONTACT ============ -->
+<section class="cta" id="contact">
+  <div class="cta__bg" data-parallax="0.12"><img src="assets/img/ridge-line.webp" alt="" aria-hidden="true" /></div>
+  <div class="cta__tint" aria-hidden="true"></div>
+  <div class="shell cta__grid">
+    <div class="cta__copy">
+      <p class="eyebrow eyebrow--light" data-reveal>[ 10 ] START</p>
+      <h2 class="cta__title" data-split="word">Tell us about your valley</h2>
+      <p data-reveal>Send us a plot, a postcode, or just a feeling about a place. We answer every enquiry ourselves within two working days — and if the site is wrong for a villa, we will say so first.</p>
+      <ul class="cta__list">
+        <li data-reveal><b>Studio</b><span>14 Rue du Lyret, Chamonix-Mont-Blanc</span></li>
+        <li data-reveal data-delay="80"><b>Workshop</b><span>Route de Martigny 22, Valais</span></li>
+        <li data-reveal data-delay="160"><b>Direct</b><span>hello@chalet-atelier.example · +41 27 000 14 98</span></li>
+      </ul>
+    </div>
+    <form class="glass cta__form" id="ctaForm" novalidate>
+      <div class="field"><label for="f-name">Your name</label><input id="f-name" name="name" type="text" required placeholder="Élise Rousseau" /></div>
+      <div class="field"><label for="f-mail">Email</label><input id="f-mail" name="email" type="email" required placeholder="you@example.com" /></div>
+      <div class="field"><label for="f-loc">Valley or plot</label><input id="f-loc" name="location" type="text" placeholder="Verbier, parcel 118" /></div>
+      <div class="field"><label for="f-msg">What are you dreaming of?</label><textarea id="f-msg" name="message" rows="4" placeholder="Four bedrooms, a big hearth, south-facing terrace…"></textarea></div>
+      <button class="btn btn--solid btn--block" type="submit"><span>Send the enquiry</span></button>
+      <p class="cta__small" id="formNote">No sales sequence. One reply, written by a human at the atelier.</p>
+    </form>
+  </div>
+</section>
+
+</main>
+
+<!-- ============ 15 · FOOTER ============ -->
+<footer class="foot">
+  <div class="shell">
+    <div class="foot__grid">
+      <div><span class="foot__k">Atelier</span><a href="#about">About</a><a href="#process">Process</a><a href="#materials">Materials</a><a href="#valleys">Valleys</a></div>
+      <div><span class="foot__k">Work</span><a href="#villas">Villas</a><a href="#collections">Collections</a><a href="#interior">Interiors</a><a href="#faq">FAQ</a></div>
+      <div><span class="foot__k">Contact</span><a href="#contact">Enquire</a><a href="#contact">Visit the workshop</a><a href="#contact">Press kit</a></div>
+      <div class="foot__say"><p>Cozy luxury villas in the mountains, drawn by hand since 1998.</p><a class="link-more link-more--dark" href="#contact"><span>BOOK A CALL</span><i aria-hidden="true"></i></a></div>
+    </div>
+    <div class="foot__mark" data-parallax="0.05" aria-hidden="true">CHALET</div>
+    <div class="foot__base">
+      <span>© 1998–2026 CHALET Alpine Villa Atelier</span>
+      <span>Chamonix · Valais · Cortina</span>
+      <span>Fictional brand — built as a scroll-animation demo</span>
+    </div>
+  </div>
+  <p class="foot__vertical" aria-hidden="true">B&nbsp;U&nbsp;I&nbsp;L&nbsp;T&nbsp;&nbsp;&nbsp;A&nbsp;T&nbsp;&nbsp;&nbsp;A&nbsp;L&nbsp;T&nbsp;I&nbsp;T&nbsp;U&nbsp;D&nbsp;E</p>
+</footer>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>
