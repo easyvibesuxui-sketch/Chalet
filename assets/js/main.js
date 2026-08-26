@@ -434,12 +434,20 @@
   var ridge = document.getElementById('ridge');
   if (ridge) {
     var ridgeLine = ridge.querySelector('.ridge__line');
-    var LEN = 2600;
+    /* measure the path instead of guessing, so editing the ridge cannot
+       desynchronise the draw-on animation */
+    var LEN = ridgeLine ? Math.ceil(ridgeLine.getTotalLength()) : 0;
+    if (ridgeLine) {
+      ridgeLine.style.strokeDasharray = LEN;
+      ridgeLine.style.strokeDashoffset = REDUCED ? 0 : LEN;
+    }
     onScroll(function () {
       var r = ridge.getBoundingClientRect();
       if (r.bottom < 0 || r.top > vh) return;
-      var p = clamp((vh - r.top) / (vh * 0.85 + r.height * 0.4), 0, 1);
-      if (ridgeLine) ridgeLine.style.strokeDashoffset = String(LEN * (1 - p));
+      /* starts as the ridge crosses the bottom edge, completes while the
+         section is still fully in view rather than long after it has passed */
+      var p = clamp((vh - r.top) / (vh * 0.45), 0, 1);
+      if (ridgeLine && !REDUCED) ridgeLine.style.strokeDashoffset = String(LEN * (1 - p));
     });
   }
 

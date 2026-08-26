@@ -406,17 +406,40 @@ section[id]{ scroll-margin-top:calc(var(--nav-h) + 18px); }
 /* =========================================================================
    10 · VALLEYS / RIDGE
    ========================================================================= */
-.valleys{ padding:clamp(110px,15vw,180px) 0 0; overflow:hidden; }
-.ridge{ position:relative; margin-top:clamp(30px,4vw,60px); }
-.ridge svg{ display:block; width:100%; height:clamp(240px,34vw,400px); }
-.ridge__far{ fill:rgba(47,74,58,.30); }
-.ridge__near{ fill:rgba(16,28,22,.95); }
-.ridge__line{ fill:none; stroke:var(--lichen); stroke-width:1.6; stroke-dasharray:2600; stroke-dashoffset:2600; }
+.valleys{ padding:clamp(110px,15vw,180px) 0 clamp(40px,6vw,80px); overflow:hidden; }
+.ridge{ position:relative; margin-top:clamp(24px,3vw,44px); }
+.valleys .h2{ margin-bottom:clamp(20px,2.5vw,34px); }
+/* preserveAspectRatio="none" means viewBox coordinates map linearly onto the
+   box, so a peak at (x,y) and a pin at (x/1200, y/320) always land together. */
+.ridge svg{ display:block; width:100%; height:clamp(260px,32vw,380px); }
+.ridge__far{ fill:rgba(47,74,58,.26); }
+.ridge__near{ fill:var(--ink-3); }
+.ridge__line{ fill:none; stroke:var(--lichen); stroke-width:1.5; stroke-linejoin:round; }
+
 .pins{ position:absolute; inset:0; list-style:none; margin:0; padding:0; }
-.pin{ position:absolute; left:var(--x); top:var(--y); transform:translate(-50%,-100%); text-align:center; }
-.pin span{ display:block; width:9px; height:9px; margin:0 auto 10px; border-radius:50%; background:var(--amber); box-shadow:0 0 0 5px rgba(232,181,99,.18); }
-.pin b{ display:block; font-family:var(--display); font-weight:700; font-size:.92rem; letter-spacing:-.01em; }
-.pin i{ display:block; font-family:var(--mono); font-style:normal; font-size:10px; letter-spacing:.16em; color:var(--lichen); margin-top:4px; }
+/* the reveal below sets `transform:none`, which would wipe out this
+   positioning transform — so the group is revealed and .pin__in is animated */
+ul.pins[data-reveal],
+ul.pins[data-reveal].is-in{ opacity:1; transform:none; clip-path:none; }
+.pin{
+  position:absolute; left:var(--x); top:var(--y);
+  transform:translate(-50%,-100%); text-align:center; width:max-content;
+}
+.pin__in{
+  display:block; opacity:0; transform:translateY(16px);
+  transition:opacity .8s var(--ease-out), transform .8s var(--ease-out);
+  transition-delay:var(--d,0ms);
+}
+.pins.is-in .pin__in{ opacity:1; transform:none; }
+.pin b{ display:block; font-family:var(--display); font-weight:700; font-size:.95rem; letter-spacing:-.015em; }
+.pin i{ display:block; font-family:var(--mono); font-style:normal; font-size:10px; letter-spacing:.16em; color:var(--lichen); margin-top:5px; }
+/* leader from the label down to the dot sitting on the summit */
+.pin s{ display:block; width:1px; height:14px; margin:9px auto 0; background:rgba(241,237,228,.34); }
+/* `.pin span` would also match .pin__in, which is a span — scope it to the dot */
+.pin__in > span{
+  display:block; width:8px; height:8px; margin:0 auto -4px; border-radius:50%;
+  background:var(--amber); box-shadow:0 0 0 4px rgba(232,181,99,.16);
+}
 
 /* =========================================================================
    11 · QUOTES
@@ -563,6 +586,10 @@ section[id]{ scroll-margin-top:calc(var(--nav-h) + 18px); }
   .vcard{ width:70vw; } .vcard--wide{ width:82vw; }
   .foot__base{ flex-direction:column; gap:8px; }
   .about__vertical{ display:none; }
+  .ridge svg{ height:clamp(200px,54vw,260px); }
+  .pin b{ font-size:.76rem; }
+  .pin i{ font-size:8.5px; letter-spacing:.1em; }
+  .pin s{ height:10px; margin-top:6px; }
 }
 
 /* =========================================================================
@@ -570,7 +597,9 @@ section[id]{ scroll-margin-top:calc(var(--nav-h) + 18px); }
    ========================================================================= */
 @media (prefers-reduced-motion:reduce){
   html{ scroll-behavior:auto; }
-  [data-reveal]{ opacity:1 !important; transform:none !important; clip-path:none !important; }
+  [data-reveal]{ opacity:1 !important; clip-path:none !important; }
+  [data-reveal]:not(.pin){ transform:none !important; }
+  .pin__in{ opacity:1 !important; transform:none !important; }
   .sp-line > i,.sp-word > i{ transform:none !important; opacity:1 !important; }
   .hero__track{ height:150vh; }
   .hero__cue i::after{ animation:none; }
