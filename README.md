@@ -3,7 +3,8 @@
 A one-page landing site for a fictional company that builds **cozy luxury villas in the mountains**.
 Everything on the page is driven by scroll position — including the hero "video".
 
-**Zero dependencies.** No framework, no build step, no CDN. Open `index.html` and it runs.
+**Zero dependencies.** No framework, no build step, no CDN — the only network requests the
+page makes are the Unsplash photos it hotlinks. Open `index.html` and it runs.
 
 ---
 
@@ -54,24 +55,38 @@ If you change the count, update `FRAME_COUNT` at the top of `assets/js/main.js`.
 | 14 | Contact | validated demo form (nothing is sent anywhere) |
 | 15 | Footer | outlined wordmark with parallax |
 
-## Swapping in your own photography
+## Photography
 
-The section imagery is currently cut from the source clip. To replace it with
-Unsplash photos, list them in `tools/photos.txt` (one line per slot: slot name,
-target aspect, photo URL or id) and run:
+Eleven section photographs come from Unsplash, hotlinked at full resolution and
+sized per slot (`?auto=format&fit=crop&w=…&h=…&q=80`) — the pattern Unsplash asks
+for, so views are counted for the photographers. Credits are in `CREDITS.md`;
+`tools/photos.txt` is the manifest (slot, target aspect, photo file, id,
+photographer).
+
+Eleven photographers do not agree on a colour palette, so every stock photo runs
+through one grade — `--grade` in the stylesheet, plus a low-opacity moss overlay
+in `mix-blend-mode: color` on the cards — which pulls the set into the same
+winter-forest register. Hover lifts the grade back toward the original.
+
+`assets/img/` also holds a small cached copy of each photo. Those are what the
+self-contained build inlines, since a published Artifact has no egress at all.
+
+To self-host the photos at full resolution instead of hotlinking, or to swap in
+different ones, edit `tools/photos.txt` and run:
 
 ```sh
 tools/fetch-unsplash.sh                          # download what the file names
 UNSPLASH_ACCESS_KEY=… tools/fetch-unsplash.sh --search   # or fill blanks by search
 ```
 
-It centre-crops each photo to the aspect its slot is designed for, encodes WebP
-into `assets/img/`, triggers the Unsplash download endpoint their API guidelines
-require, and writes attribution to `CREDITS.md`. Only the public Access Key is
-ever needed — never the Secret Key. Requires `ffmpeg`, `curl` and `jq`.
+It centre-crops each photo to its slot's aspect, encodes WebP into `assets/img/`,
+triggers the download endpoint the Unsplash API guidelines require, and rewrites
+`CREDITS.md`. Only the public Access Key is ever needed — never the Secret Key.
+Requires `ffmpeg`, `curl` and `jq`.
 
-The five `stage-*` frames stay as they are: they are the blueprint-to-house
-sequence, and stock photography cannot tell that story.
+The hero frame sequence, the five `stage-*` stills and `blueprint-wide` are not
+from Unsplash: they are the blueprint-to-house sequence decoded from the source
+clip, and stock photography cannot tell that story.
 
 ## Files
 
@@ -107,5 +122,5 @@ Palette is deep forest / moss / lichen / bone with a lit-window amber accent. Ty
 The frosted-glass panels, vertical side text, oversized blended display type and pill buttons come
 from the supplied UI references.
 
-CHALET is a fictional brand, built as a scroll-animation demo. All imagery derives from the
-supplied source clip.
+CHALET is a fictional brand, built as a scroll-animation demo. The hero sequence comes from the
+supplied source clip; the section photography comes from Unsplash and is credited in `CREDITS.md`.

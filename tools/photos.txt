@@ -1,26 +1,22 @@
-# CHALET — image slots
+# CHALET — Unsplash image slots
 #
-# One line per slot:   <slot>  <crop>  <unsplash-photo-url-or-id>  # search hint
+# slot | aspect | unsplash photo file | photo id | photographer | username
 #
-# <slot>  the file written to assets/img/<slot>.webp — the names the page uses
-# <crop>  target aspect the slot is designed for; the script centre-crops to it
-#
-# Paste an Unsplash photo URL (https://unsplash.com/photos/slug-ID) or a bare ID
-# in the third column. Lines whose third column is "-" are skipped and the file
-# already in assets/img/ is kept.
+# The page hotlinks these from images.unsplash.com at full quality. Run
+# tools/fetch-unsplash.sh to self-host them into assets/img/ instead.
 
-villa-gable      3:4   -    # alpine chalet facade, gable glazing, winter
-villa-wing       3:4   -    # timber chalet wing at the forest edge, snow
-villa-garden     4:3   -    # mountain villa garden under snow
-villa-drive      4:3   -    # chalet arrival court / driveway in winter
-villa-pool       4:3   -    # heated outdoor pool at a chalet, snow around it
-forest-edge      3:4   -    # dense snowy pine forest (About section backdrop)
-ridge-line      16:5   -    # alpine ridge line at dusk (Contact backdrop)
-detail-timber    4:5   -    # larch / weathered timber cladding, close up
-detail-stone     4:5   -    # dry-laid stone wall, close up
-detail-glass     4:5   -    # warm-lit chalet window from outside at dusk
+villa-gable    3:4   photo-1786882547301-1de9322c980f  x-zTts8j31Y   David Ohayon       davidohayon_
+villa-wing     3:4   photo-1520974752130-0eef002d8d3f  hlp7Alc3MHs   Yannic Laderach    yl_photography
+villa-garden   4:3   photo-1522071500372-f0fd8c452178  MMh57gXsTug   Annie Spratt       anniespratt
+villa-drive    4:3   photo-1550503736-c1a2c9033c03     QOuV-iMpL_w   Patrick R Doyle    teapowered
+villa-pool     4:3   photo-1615011950300-ffd3dcfc509f  spBJSPLeA0k   Jamie Fenn         jamie_fenn
+forest-edge    3:4   photo-1642638966040-547114e05439  CnpN4TVqOx0   Sarah Janes        sjanesphotos
+ridge-line    16:9   photo-1515345022855-c81dd983fe04  ov6QNr4fZcQ   Zbynek Burival     zburival
+detail-timber  4:5   photo-1608632035933-990a32cf74c2  ieUYKZOT11g   the blowup         theblowup
+detail-stone   4:5   photo-1657401972566-6679de283e1b  yzzGrk9Wjfc   Philippa Lowe      palohills
+detail-glass   4:5   photo-1564703048291-bcf7f001d83d  pnEtsdgBeBE   Peter Jan Rijpkema pjrpkm
+interior-room  4:5   photo-1551927411-95e412943b58     51adhgg5KkE   Nachelle Nocom     nachellenocom
 
-# The five `stage-*` frames and `blueprint-wide` are the blueprint-to-house
-# sequence cut from the source clip. Stock photos cannot tell that story, so
-# they are deliberately not listed here. Add them yourself if you want them
-# replaced too.
+# blueprint-wide and the five stage-* frames stay as they are: they are the
+# blueprint-to-house sequence the hero scrub is built on, cut from the source
+# clip. Stock photography cannot tell that story.
