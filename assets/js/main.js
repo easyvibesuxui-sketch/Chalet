@@ -39,6 +39,7 @@
     vh = window.innerHeight; vw = window.innerWidth;
     if (scrubber) scrubber.resize();
     if (hgal) hgal.measure();
+    measureArc();
   }, { passive: true });
 
   /* progress of an element's "track" through the viewport (0 → 1) */
@@ -145,8 +146,22 @@
 
   var scrubber = null;
   var canvas = document.getElementById('heroCanvas');
-  var film = document.getElementById('film');
   var filmScrim = document.getElementById('filmScrim');
+  var hud = document.querySelector('.stage__hud');
+  /* the story beats: transparent sections the fixed sequence shows through */
+  var beats = Array.prototype.slice.call(document.querySelectorAll('[data-film]'));
+
+  /* The arc runs from the top of the page to the bottom of the last beat, so
+     the villa is finished exactly when the closing section arrives — not
+     somewhere under the footer. Remeasured on resize and after images load. */
+  var arcEnd = 1;
+  function measureArc() {
+    if (!beats.length) return;
+    var last = beats[beats.length - 1].getBoundingClientRect();
+    arcEnd = Math.max(1, last.bottom + window.pageYOffset - vh * 0.55);
+  }
+  measureArc();
+  window.addEventListener('load', measureArc);
 
   if (canvas && canvas.getContext) {
     scrubber = new Scrubber(canvas);
@@ -172,11 +187,18 @@
   var panel = document.querySelector('[data-hero="panel"]');
   var lastStage = -1;
 
-  if (film) {
-    onScroll(function () {
-      var r = film.getBoundingClientRect();
-      if (r.bottom < -vh || r.top > vh) return;   // off-screen: skip work
-      var p = trackProgress(film);
+  if (beats.length) {
+    var beatOn = false;
+    onScroll(function (y) {
+      var p = clamp(y / arcEnd, 0, 1);
+
+      /* the read-out belongs to the sequence, so it only shows over a beat */
+      var vis = false;
+      for (var bi = 0; bi < beats.length; bi++) {
+        var br = beats[bi].getBoundingClientRect();
+        if (br.top < vh * 0.72 && br.bottom > vh * 0.28) { vis = true; break; }
+      }
+      if (vis !== beatOn) { beatOn = vis; if (hud) hud.classList.toggle('is-on', vis); }
 
       /* Reduced motion: the villa is shown finished, never scrubbed. */
       if (scrubber && !REDUCED) scrubber.seek(p);
@@ -189,7 +211,7 @@
         if (elStageName) elStageName.textContent = STAGES[s][1];
       }
       if (elHeroRail && !REDUCED) elHeroRail.style.width = (p * 100).toFixed(2) + '%';
-      if (elCue) elCue.classList.toggle('is-gone', p > 0.04);
+      if (elCue) elCue.classList.toggle('is-gone', y > vh * 0.12);
 
       /* The clip opens on white drafting paper. Wash it down hard at the start
          and lift the wash as the villa itself gets dark, so the type keeps its
@@ -201,8 +223,8 @@
       if (REDUCED) return;
 
       /* type drifts apart and clears the frame as the villa resolves */
-      /* the wordmark clears the frame across the first reel only */
-      var t = clamp(p / 0.30, 0, 1);
+      /* the wordmark clears the frame across the opening beat only */
+      var t = clamp(y / Math.max(vh, 1), 0, 1);
       var ease = t * t;
       if (w1) w1.style.transform = 'translate3d(' + (-ease * 14) + 'vw,' + (-ease * 22) + 'vh,0)';
       if (w2) w2.style.transform = 'translate3d(' + (ease * 16) + 'vw,' + (-ease * 19) + 'vh,0)';
@@ -210,9 +232,9 @@
         scr.style.transform = 'translate3d(0,' + (-ease * 20) + 'vh,0)';
         scr.style.opacity = String(clamp(1 - t * 1.4, 0, 1));
       }
-      if (eyeb) eyeb.style.opacity = String(clamp(1 - p / 0.07, 0, 1));
+      if (eyeb) eyeb.style.opacity = String(clamp(1 - y / (vh * 0.35), 0, 1));
 
-      var pp = clamp((p - 0.03) / 0.17, 0, 1);
+      var pp = clamp((y - vh * 0.12) / (vh * 0.7), 0, 1);
       if (panel) {
         panel.style.transform = 'translate3d(0,' + (pp * 34) + 'px,0)';
         panel.style.opacity = String(1 - pp);

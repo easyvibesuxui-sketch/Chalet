@@ -8,7 +8,7 @@ page makes are the Unsplash photos it hotlinks. Open `index.html` and it runs.
 
 ---
 
-## The film: three sections over one scrubbed sequence
+## The stage: one scrubbed sequence behind the whole page
 
 > **No autoplay.** There is no `<video>` element, no timer and no playback loop anywhere in this
 > project. The source clip was decoded into **80 still frames** (`assets/frames/f001…f080.webp`)
@@ -19,12 +19,25 @@ The clip runs a villa from ink blueprint to finished winter chalet, so the scrub
 company's story: scroll down and you literally build the house. A read-out in the corner tracks the
 stage — `BLUEPRINT → STRUCTURE → STONE & LARCH → GLASS & WARMTH → HOME`.
 
-The sequence is not just the hero. `.film` holds three full-height reels — the wordmark, the
-manifesto and the About panel — that scroll across one continuous take. `.film__bg` is absolutely
-positioned over the wrapper and only its inner `.film__pin` is sticky. That detail matters: putting
-`margin-bottom: -100vh` on the sticky element itself (the usual overlay trick) extends its sticky
-range by exactly that amount, and the sequence then paints a whole viewport past the wrapper, over
-the sections below.
+The sequence is the page's spine, not a hero effect. `.stage` is fixed to the viewport and driven
+by page scroll; sections marked `data-film` are transparent and let it through, and every other
+section is opaque and covers it. So the backdrop returns six times between content, and the villa
+has visibly moved on at each return:
+
+| Beat | Section | Stage |
+|---|---|---|
+| 1 | Hero | BLUEPRINT |
+| 2 | Manifesto | BLUEPRINT |
+| 3 | About the Mountain | STRUCTURE |
+| 4 | Stats | STONE & LARCH |
+| 5 | Owners | GLASS & WARMTH |
+| 6 | Contact | HOME |
+
+The beats are interleaved with content on purpose. Grouped together at the top they all fell inside
+the first few frames, and the villa then jumped from drafting paper to finished in one cut; spread
+through the page, the arc actually unfolds. The scrub runs from the top of the page to the bottom of
+the last beat, so the villa is finished exactly when the closing section arrives rather than
+somewhere under the footer.
 
 The clip opens on white drafting paper and ends on a night exterior, so the scrim's `--wash` is
 driven from scroll — heavy at the start to sink the paper into the page, nearly gone by the time

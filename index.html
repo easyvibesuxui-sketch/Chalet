@@ -61,89 +61,52 @@
   <a href="#materials">Materials</a><a href="#collections">Collections</a><a href="#contact">Contact</a>
 </div>
 
-<main id="top">
+<!-- ============ THE STAGE — one scrubbed sequence behind the whole page
+     Fixed to the viewport and driven by page scroll. Sections marked
+     data-film are transparent and let it through; every other section is
+     opaque and covers it, so the villa is further along each time it
+     reappears. Nothing plays on its own: a frame is only ever drawn for
+     a scroll position.
+     ========================================================================= -->
+<div class="stage" aria-hidden="true">
+  <canvas id="heroCanvas" class="stage__canvas"></canvas>
+  <img class="stage__fallback" id="heroFallback" src="assets/frames/f001.webp" alt="" />
+  <div class="stage__scrim" id="filmScrim"></div>
+  <div class="stage__grain"></div>
+  <div class="stage__hud" aria-hidden="true">
+      <div class="hero__stagelabel"><span class="hero__stagename" id="stageName">BLUEPRINT</span></div>
+      <div class="hero__rail"><span id="heroRail"></span></div>
+      <div class="hero__cue" id="heroCue"><span>SCROLL TO BUILD</span><i></i></div>
+  </div>
+</div>
 
+<main id="top">
 <!-- ============ THE FILM — one scroll-scrubbed sequence behind three sections
      The source clip is decoded to stills and painted on a single pinned canvas.
      Nothing plays on its own: a frame is only ever drawn for a scroll position.
      ========================================================================= -->
-<div class="film" id="film">
-  <div class="film__bg" aria-hidden="true">
-    <div class="film__pin">
-      <canvas id="heroCanvas" class="film__canvas"></canvas>
-      <img class="film__fallback" id="heroFallback" src="assets/frames/f001.webp" alt="" />
-      <div class="film__scrim" id="filmScrim"></div>
-      <div class="film__grain"></div>
-      <div class="film__hud" aria-hidden="true">
-          <div class="hero__stagelabel"><span class="hero__stagename" id="stageName">BLUEPRINT</span></div>
-          <div class="hero__rail"><span id="heroRail"></span></div>
-          <div class="hero__cue" id="heroCue"><span>SCROLL TO BUILD</span><i></i></div>
-      </div>
-    </div>
+<section class="chapter chapter--hero" id="hero" data-film>
+
+  <div class="hero__type">
+    <p class="eyebrow eyebrow--light" data-hero="eyebrow">ALPINE VILLA ATELIER — EST. 1998</p>
+    <h1 class="hero__title">
+      <span class="hero__line"><span class="hero__word hero__word--blend" data-hero="w1">MOUNTAIN</span></span>
+      <span class="hero__line hero__line--2">
+        <em class="hero__script" data-hero="script">cozy</em>
+        <span class="hero__word hero__word--solid" data-hero="w2">HOME</span>
+      </span>
+    </h1>
   </div>
 
-  <div class="film__content">
+  <p class="hero__vertical" aria-hidden="true">A&nbsp;L&nbsp;P&nbsp;I&nbsp;N&nbsp;E&nbsp;&nbsp;&nbsp;A&nbsp;T&nbsp;E&nbsp;L&nbsp;I&nbsp;E&nbsp;R</p>
 
-    <section class="reel reel--hero" id="hero">
-
-      <div class="hero__type">
-        <p class="eyebrow eyebrow--light" data-hero="eyebrow">ALPINE VILLA ATELIER — EST. 1998</p>
-        <h1 class="hero__title">
-          <span class="hero__line"><span class="hero__word hero__word--blend" data-hero="w1">MOUNTAIN</span></span>
-          <span class="hero__line hero__line--2">
-            <em class="hero__script" data-hero="script">cozy</em>
-            <span class="hero__word hero__word--solid" data-hero="w2">HOME</span>
-          </span>
-        </h1>
-      </div>
-
-      <p class="hero__vertical" aria-hidden="true">A&nbsp;L&nbsp;P&nbsp;I&nbsp;N&nbsp;E&nbsp;&nbsp;&nbsp;A&nbsp;T&nbsp;E&nbsp;L&nbsp;I&nbsp;E&nbsp;R</p>
-
-      <div class="glass hero__panel" data-hero="panel">
-        <p class="eyebrow">DISCOVER VILLAS</p>
-        <h2>We draw it in winter.<br />You live in it by the next one.</h2>
-        <p class="hero__panel-copy">Every CHALET villa begins as a single ink line on paper and ends as a warm room at 1 800 metres. Hand-cut larch, quarried stone, and glass engineered for the coldest night of the year.</p>
-        <a class="link-more" href="#atelier"><span>KNOW MORE</span><i aria-hidden="true"></i></a>
-      </div>
-    </section>
-
-    <section class="reel reel--manifesto" id="atelier">
-      <div class="shell">
-
-    <p class="eyebrow" data-reveal>THE ATELIER</p>
-    <p class="manifesto__text" data-split="line">
-      We build houses that hold heat, light and quiet. A CHALET villa is not a hotel suite dropped on a slope — it is a <em>slow, warm, deliberate</em> home, cut for its own valley, its own weather, and the family that will wake up in it.
-    </p>
-    <div class="manifesto__meta">
-      <div data-reveal data-delay="0"><span class="k">Founded</span><span class="v">Chamonix, 1998</span></div>
-      <div data-reveal data-delay="80"><span class="k">Discipline</span><span class="v">Design · Engineering · Build</span></div>
-      <div data-reveal data-delay="160"><span class="k">Valleys</span><span class="v">Mont-Blanc · Valais · Dolomites</span></div>
-    </div>
-      </div>
-    </section>
-
-    <section class="reel reel--about" id="about">
-      <div class="shell reel__shell">
-
-    <div class="glass glass--soft about__frame" data-reveal="clip">
-      <div class="about__inner">
-        <h2 class="about__title" data-split="word">About<br />the Mountain</h2>
-        <span class="rule"></span>
-        <p>The mountain is not a backdrop; it is the first client. Before a single line is drawn we spend four seasons on the plot — tracking sun angles, snow drift, wind corridors and the exact hour the valley goes gold.</p>
-        <p>What we hand back is a villa that belongs there: low, warm, generous with glass where the view earns it, and closed where the north wind arrives.</p>
-        <div class="about__actions">
-          <a class="btn btn--solid" href="#process"><span>Our method</span></a>
-          <a class="btn btn--ghost" href="#villas"><span>See villas</span></a>
-          <span class="about__note">Connect with the mountain</span>
-        </div>
-      </div>
-    </div>
-      </div>
-    </section>
-
+  <div class="glass hero__panel" data-hero="panel">
+    <p class="eyebrow">DISCOVER VILLAS</p>
+    <h2>We draw it in winter.<br />You live in it by the next one.</h2>
+    <p class="hero__panel-copy">Every CHALET villa begins as a single ink line on paper and ends as a warm room at 1 800 metres. Hand-cut larch, quarried stone, and glass engineered for the coldest night of the year.</p>
+    <a class="link-more" href="#atelier"><span>KNOW MORE</span><i aria-hidden="true"></i></a>
   </div>
-
-</div>
+</section>
 
 <!-- ============ 02 · SCROLL-DRIVEN TICKER ============ -->
 <section class="ticker" aria-hidden="true">
@@ -153,13 +116,18 @@
   </div>
 </section>
 
-<!-- ============ 05 · STATS ============ -->
-<section class="stats">
-  <div class="shell stats__grid">
-    <div class="stat" data-reveal><span class="stat__num" data-count="143">0</span><span class="stat__k">Villas delivered</span></div>
-    <div class="stat" data-reveal data-delay="90"><span class="stat__num" data-count="27">0</span><span class="stat__k">Years at altitude</span></div>
-    <div class="stat" data-reveal data-delay="180"><span class="stat__num" data-count="1840" data-suffix=" m">0</span><span class="stat__k">Average build height</span></div>
-    <div class="stat" data-reveal data-delay="270"><span class="stat__num" data-count="98" data-suffix="%">0</span><span class="stat__k">Clients who refer us</span></div>
+<section class="chapter chapter--manifesto" id="atelier" data-film>
+  <div class="shell">
+
+<p class="eyebrow" data-reveal>THE ATELIER</p>
+<p class="manifesto__text" data-split="line">
+  We build houses that hold heat, light and quiet. A CHALET villa is not a hotel suite dropped on a slope — it is a <em>slow, warm, deliberate</em> home, cut for its own valley, its own weather, and the family that will wake up in it.
+</p>
+<div class="manifesto__meta">
+  <div data-reveal data-delay="0"><span class="k">Founded</span><span class="v">Chamonix, 1998</span></div>
+  <div data-reveal data-delay="80"><span class="k">Discipline</span><span class="v">Design · Engineering · Build</span></div>
+  <div data-reveal data-delay="160"><span class="k">Valleys</span><span class="v">Mont-Blanc · Valais · Dolomites</span></div>
+</div>
   </div>
 </section>
 
@@ -213,6 +181,25 @@
   </div>
 </section>
 
+<section class="chapter chapter--about" id="about" data-film>
+  <div class="shell reel__shell">
+
+<div class="glass glass--soft about__frame" data-reveal="clip">
+  <div class="about__inner">
+    <h2 class="about__title" data-split="word">About<br />the Mountain</h2>
+    <span class="rule"></span>
+    <p>The mountain is not a backdrop; it is the first client. Before a single line is drawn we spend four seasons on the plot — tracking sun angles, snow drift, wind corridors and the exact hour the valley goes gold.</p>
+    <p>What we hand back is a villa that belongs there: low, warm, generous with glass where the view earns it, and closed where the north wind arrives.</p>
+    <div class="about__actions">
+      <a class="btn btn--solid" href="#process"><span>Our method</span></a>
+      <a class="btn btn--ghost" href="#villas"><span>See villas</span></a>
+      <span class="about__note">Connect with the mountain</span>
+    </div>
+  </div>
+</div>
+  </div>
+</section>
+
 <!-- ============ 07 · HORIZONTAL VILLA GALLERY ============ -->
 <section class="hgal" id="villas">
   <div class="hgal__track">
@@ -250,6 +237,16 @@
       </div></div>
       <div class="hgal__rail" aria-hidden="true"><span id="hgalRail"></span></div>
     </div>
+  </div>
+</section>
+
+<!-- ============ 05 · STATS ============ -->
+<section class="stats" data-film>
+  <div class="shell stats__grid">
+    <div class="stat" data-reveal><span class="stat__num" data-count="143">0</span><span class="stat__k">Villas delivered</span></div>
+    <div class="stat" data-reveal data-delay="90"><span class="stat__num" data-count="27">0</span><span class="stat__k">Years at altitude</span></div>
+    <div class="stat" data-reveal data-delay="180"><span class="stat__num" data-count="1840" data-suffix=" m">0</span><span class="stat__k">Average build height</span></div>
+    <div class="stat" data-reveal data-delay="270"><span class="stat__num" data-count="98" data-suffix="%">0</span><span class="stat__k">Clients who refer us</span></div>
   </div>
 </section>
 
@@ -301,6 +298,27 @@
   </div>
 </section>
 
+<!-- ============ 11 · TESTIMONIALS ============ -->
+<section class="quotes" data-film>
+  <div class="shell">
+    <p class="eyebrow" data-reveal>OWNERS</p>
+    <div class="quotes__grid">
+      <figure class="quote" data-reveal="clip">
+        <blockquote>“They spent a year watching our plot before they drew anything. The first winter in the house, we understood exactly why.”</blockquote>
+        <figcaption><b>Élise &amp; Matthieu R.</b><span>Villa Larix · Chamonix</span></figcaption>
+      </figure>
+      <figure class="quote" data-reveal="clip" data-delay="120">
+        <blockquote>“Minus twenty-two outside, twenty-one inside, and the heating had been off since lunch. That is the whole pitch, really.”</blockquote>
+        <figcaption><b>Anders K.</b><span>Villa Firn · Zermatt</span></figcaption>
+      </figure>
+      <figure class="quote" data-reveal="clip" data-delay="240">
+        <blockquote>“Eleven days from the first truck to a raised frame. Our neighbours are still talking about it four seasons later.”</blockquote>
+        <figcaption><b>The Bianchi family</b><span>Villa Marmot · Cortina</span></figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
 <!-- ============ 10 · VALLEYS / DRAWN RIDGE ============ -->
 <section class="valleys" id="valleys">
   <div class="shell">
@@ -320,27 +338,6 @@
       <li class="pin" style="--x:70.000%;--y:64.688%"><span class="pin__in" style="--d:270ms"><b>Cortina</b><i>1 510 m</i><s></s><span></span></span></li>
       <li class="pin" style="--x:90.000%;--y:81.250%"><span class="pin__in" style="--d:360ms"><b>Hafjell</b><i>1 200 m</i><s></s><span></span></span></li>
     </ul>
-  </div>
-</section>
-
-<!-- ============ 11 · TESTIMONIALS ============ -->
-<section class="quotes">
-  <div class="shell">
-    <p class="eyebrow" data-reveal>OWNERS</p>
-    <div class="quotes__grid">
-      <figure class="quote" data-reveal="clip">
-        <blockquote>“They spent a year watching our plot before they drew anything. The first winter in the house, we understood exactly why.”</blockquote>
-        <figcaption><b>Élise &amp; Matthieu R.</b><span>Villa Larix · Chamonix</span></figcaption>
-      </figure>
-      <figure class="quote" data-reveal="clip" data-delay="120">
-        <blockquote>“Minus twenty-two outside, twenty-one inside, and the heating had been off since lunch. That is the whole pitch, really.”</blockquote>
-        <figcaption><b>Anders K.</b><span>Villa Firn · Zermatt</span></figcaption>
-      </figure>
-      <figure class="quote" data-reveal="clip" data-delay="240">
-        <blockquote>“Eleven days from the first truck to a raised frame. Our neighbours are still talking about it four seasons later.”</blockquote>
-        <figcaption><b>The Bianchi family</b><span>Villa Marmot · Cortina</span></figcaption>
-      </figure>
-    </div>
   </div>
 </section>
 
@@ -392,9 +389,7 @@
 </section>
 
 <!-- ============ 14 · CTA / CONTACT ============ -->
-<section class="cta" id="contact">
-  <div class="cta__bg" data-parallax="0.12"><img src="https://images.unsplash.com/photo-1515345022855-c81dd983fe04?auto=format&fit=crop&w=1920&h=1080&q=80" data-slot="ridge-line" alt="" aria-hidden="true" /></div>
-  <div class="cta__tint" aria-hidden="true"></div>
+<section class="cta" id="contact" data-film>
   <div class="shell cta__grid">
     <div class="cta__copy">
       <p class="eyebrow eyebrow--light" data-reveal>START</p>
@@ -416,7 +411,6 @@
     </form>
   </div>
 </section>
-
 </main>
 
 <!-- ============ 15 · FOOTER ============ -->
