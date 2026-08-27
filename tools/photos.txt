@@ -19,3 +19,4 @@ interior-room  4:5   photo-1551927411-95e412943b58     51adhgg5KkE   Nachelle No
 # blueprint-wide and the five stage-* frames stay as they are: they are the
 # blueprint-to-house sequence the hero scrub is built on, cut from the source
 # clip. Stock photography cannot tell that story.
+hearth         16:9  photo-1696860740767-f4211c9209f4  Qry84CsaA9o   Clay Banks         claybanks

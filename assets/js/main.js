@@ -316,18 +316,33 @@
     if (el.hasAttribute('data-count')) countUp(el);
   }
 
+  var pending = [];
+
+  function release(t) {
+    /* a clip-group stands in for children that clip themselves to nothing */
+    if (t.hasAttribute('data-clip-group')) {
+      t.querySelectorAll('[data-reveal="clip"]').forEach(markIn);
+    }
+    if (t.hasAttribute('data-reveal') || t.hasAttribute('data-split')) markIn(t);
+    io.unobserve(t);
+    var i = pending.indexOf(t);
+    if (i > -1) pending.splice(i, 1);
+  }
+
   var io = new IntersectionObserver(function (entries) {
-    entries.forEach(function (e) {
-      if (!e.isIntersecting) return;
-      var t = e.target;
-      /* a clip-group stands in for children that clip themselves to nothing */
-      if (t.hasAttribute('data-clip-group')) {
-        t.querySelectorAll('[data-reveal="clip"]').forEach(markIn);
-      }
-      if (t.hasAttribute('data-reveal') || t.hasAttribute('data-split')) markIn(t);
-      io.unobserve(t);
-    });
+    entries.forEach(function (e) { if (e.isIntersecting) release(e.target); });
   }, { rootMargin: '0px 0px -12% 0px', threshold: 0.12 });
+
+  /* A fast flick or an anchor jump coalesces IntersectionObserver updates, and
+     anything that flew past never reports as intersecting — it would sit at
+     opacity 0 forever. Sweep whatever the observer missed. */
+  onScroll(function () {
+    if (!pending.length) return;
+    for (var i = pending.length - 1; i >= 0; i--) {
+      var el = pending[i];
+      if (el.getBoundingClientRect().top < vh * 0.94) release(el);
+    }
+  });
 
   /* An element with `clip-path: inset(0 0 100% 0)` reports an empty
      intersection rectangle, so IntersectionObserver would never fire for it.
@@ -343,8 +358,9 @@
       return;
     }
     io.observe(el);
+    pending.push(el);
   });
-  clipGroups.forEach(function (g) { io.observe(g); });
+  clipGroups.forEach(function (g) { io.observe(g); pending.push(g); });
 
   /* ---------------------------------------------------------------------
      6 · PARALLAX
@@ -478,12 +494,22 @@
   var burger = document.getElementById('burger');
   var drawer = document.getElementById('drawer');
   if (nav) {
-    var prev = 0;
+    var navAnchor = window.pageYOffset;
+    var navHidden = false;
     onScroll(function (y) {
       nav.classList.toggle('is-stuck', y > 40);
+      /* Deciding from a single frame's delta made the bar flicker: sub-pixel
+         scroll and momentum both flip the sign of `y > prev` many times a
+         second. Commit only once the reader has actually travelled. */
+      var d = y - navAnchor;
+      if (Math.abs(d) < 16) return;
+      navAnchor = y;
       var open = drawer && drawer.classList.contains('is-open');
-      nav.classList.toggle('is-hidden', !open && y > prev && y > vh * 0.9);
-      prev = y;
+      var hide = !open && d > 0 && y > vh * 1.1;
+      if (hide !== navHidden) {
+        navHidden = hide;
+        nav.classList.toggle('is-hidden', hide);
+      }
     });
   }
   if (burger && drawer) {
@@ -496,6 +522,98 @@
       if (e.target.tagName === 'A') {
         drawer.classList.remove('is-open');
         burger.setAttribute('aria-expanded', 'false');
+      }
+    });
+  }
+
+  /* ---------------------------------------------------------------------
+     12b · THE HEARTH — embers rising inside, snow falling outside
+     Ambient, not autoplaying media: each layer runs only while the section is
+     on screen, and neither is created at all under prefers-reduced-motion.
+     --------------------------------------------------------------------- */
+  function particleLayer(canvas, opts) {
+    if (!canvas || !canvas.getContext || REDUCED) return;
+    var ctx = canvas.getContext('2d');
+    var host = opts.host;
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    var w = 0, h = 0, bits = [], live = false, raf = 0;
+
+    function size() {
+      w = canvas.offsetWidth; h = canvas.offsetHeight;
+      canvas.width = Math.round(w * dpr);
+      canvas.height = Math.round(h * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      bits = [];
+      var n = Math.round(Math.min(opts.max, (w * h) / opts.density));
+      for (var i = 0; i < n; i++) bits.push(opts.spawn(w, h, true));
+    }
+
+    function frame() {
+      if (!live) return;
+      ctx.clearRect(0, 0, w, h);
+      for (var i = 0; i < bits.length; i++) {
+        var b = bits[i];
+        opts.step(b, w, h);
+        if (b.dead) { bits[i] = opts.spawn(w, h, false); continue; }
+        opts.paint(ctx, b);
+      }
+      raf = requestAnimationFrame(frame);
+    }
+
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (e.isIntersecting && !live) { live = true; if (!w) size(); raf = requestAnimationFrame(frame); }
+        else if (!e.isIntersecting && live) { live = false; cancelAnimationFrame(raf); }
+      });
+    }, { rootMargin: '10% 0px' });
+    io.observe(host);
+    window.addEventListener('resize', function () { if (w) size(); }, { passive: true });
+  }
+
+  var hearthSection = document.querySelector('.split--hearth');
+  if (hearthSection) {
+    /* embers drift up out of the fire, wander, cool and go out */
+    particleLayer(document.getElementById('emberCanvas'), {
+      host: hearthSection, density: 5200, max: 46,
+      spawn: function (w, h, seeded) {
+        return { x: w * (0.22 + Math.random() * 0.42), y: seeded ? Math.random() * h : h * (0.72 + Math.random() * 0.2),
+                 r: 0.6 + Math.random() * 1.5, vy: -(0.12 + Math.random() * 0.42),
+                 drift: (Math.random() - 0.5) * 0.28, t: Math.random() * 6.28,
+                 life: 1, fade: 0.0022 + Math.random() * 0.004, dead: false };
+      },
+      step: function (b) {
+        b.t += 0.02; b.y += b.vy; b.x += Math.sin(b.t) * b.drift;
+        b.life -= b.fade;
+        if (b.life <= 0 || b.y < -10) b.dead = true;
+      },
+      paint: function (c, b) {
+        var a = Math.max(0, Math.min(1, b.life)) * 0.85;
+        c.beginPath();
+        c.fillStyle = 'rgba(' + (235 - (1 - b.life) * 60) + ',' + (150 - (1 - b.life) * 70) + ',70,' + a + ')';
+        c.arc(b.x, b.y, b.r, 0, 6.2832);
+        c.fill();
+      }
+    });
+
+    /* snow falling behind the whole section — the weather the hearth answers */
+    particleLayer(document.getElementById('snowCanvas'), {
+      host: hearthSection, density: 9000, max: 130,
+      spawn: function (w, h, seeded) {
+        return { x: Math.random() * w, y: seeded ? Math.random() * h : -12,
+                 r: 0.7 + Math.random() * 1.8, vy: 0.22 + Math.random() * 0.62,
+                 drift: (Math.random() - 0.5) * 0.5, t: Math.random() * 6.28,
+                 life: 1, dead: false };
+      },
+      step: function (b, w, h) {
+        b.t += 0.011; b.y += b.vy; b.x += Math.sin(b.t) * b.drift;
+        if (b.y > h + 12) b.dead = true;
+        if (b.x < -12) b.x = w + 12; else if (b.x > w + 12) b.x = -12;
+      },
+      paint: function (c, b) {
+        c.beginPath();
+        c.fillStyle = 'rgba(214,228,226,' + (0.10 + b.r * 0.14) + ')';
+        c.arc(b.x, b.y, b.r, 0, 6.2832);
+        c.fill();
       }
     });
   }

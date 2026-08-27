@@ -14,5 +14,6 @@ Section photography from [Unsplash](https://unsplash.com).
 | `detail-stone` | [Philippa Lowe](https://unsplash.com/@palohills) | [yzzGrk9Wjfc](https://unsplash.com/photos/yzzGrk9Wjfc) |
 | `detail-glass` | [Peter Jan Rijpkema](https://unsplash.com/@pjrpkm) | [pnEtsdgBeBE](https://unsplash.com/photos/pnEtsdgBeBE) |
 | `interior-room` | [Nachelle Nocom](https://unsplash.com/@nachellenocom) | [51adhgg5KkE](https://unsplash.com/photos/51adhgg5KkE) |
+| `hearth` | [Clay Banks](https://unsplash.com/@claybanks) | [Qry84CsaA9o](https://unsplash.com/photos/Qry84CsaA9o) |
 
 The hero frame sequence, the five `stage-*` stills and `blueprint-wide` are decoded from the source clip supplied with the brief, not from Unsplash.

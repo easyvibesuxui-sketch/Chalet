@@ -66,6 +66,14 @@ If you change the count, update `FRAME_COUNT` at the top of `assets/js/main.js`.
 | 14 | Contact | validated demo form (nothing is sent anywhere) |
 | 15 | Footer | outlined wordmark with parallax |
 
+## The hearth
+
+The Inside section is a lit fire in a stone hearth with snow falling behind the
+whole section. Neither layer is autoplaying media: the embers and the snow are
+two canvas particle layers that run only while the section is on screen, and are
+never created at all under `prefers-reduced-motion`. The firelight itself is a
+CSS radial gradient on a slow breathing keyframe.
+
 ## Photography
 
 Eleven section photographs come from Unsplash, hotlinked at full resolution and
