@@ -260,7 +260,7 @@
          and lift the wash as the villa itself gets dark, so the type keeps its
          contrast the whole way through. */
       if (filmScrim) {
-        filmScrim.style.setProperty('--wash', (0.60 - clamp(p, 0, 1) * 0.44).toFixed(3));
+        filmScrim.style.setProperty('--wash', (0.42 - clamp(p, 0, 1) * 0.36).toFixed(3));
       }
 
       if (REDUCED) return;

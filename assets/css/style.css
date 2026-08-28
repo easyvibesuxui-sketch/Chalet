@@ -46,6 +46,7 @@
   --ease:cubic-bezier(.22,.61,.36,1);
   --ease-out:cubic-bezier(.16,1,.3,1);
   --nav-h:76px;
+  --hud-h:74px;   /* the stage read-out sits in this band; beats keep clear of it */
 
   /* every stock photo passes through the same grade so the set reads as one shoot */
   --grade:saturate(.5) contrast(1.08) brightness(.86);
@@ -129,7 +130,7 @@ section[id]{ scroll-margin-top:calc(var(--nav-h) + 18px); }
   box-shadow:0 30px 80px -40px rgba(0,0,0,.85), inset 0 1px 0 rgba(255,255,255,.22);
 }
 .glass--soft{
-  background:linear-gradient(160deg, rgba(12,22,16,.52), rgba(12,22,16,.30));
+  background:linear-gradient(160deg, rgba(8,14,16,.42), rgba(8,14,16,.20));
   border-color:rgba(255,255,255,.16);
 }
 
@@ -233,9 +234,9 @@ section[id]{ scroll-margin-top:calc(var(--nav-h) + 18px); }
 .stage__scrim{
   position:absolute; inset:0; pointer-events:none;
   background:
-    linear-gradient(90deg, rgba(5,9,10,.80) 0%, rgba(5,9,10,.34) 42%, transparent 68%),
-    linear-gradient(180deg, rgba(5,9,10,.92) 0%, rgba(5,9,10,.28) 24%, rgba(5,9,10,.32) 58%, rgba(5,9,10,.95) 100%),
-    radial-gradient(130% 90% at 62% 38%, transparent 26%, rgba(5,9,10,.62) 100%);
+    linear-gradient(90deg, rgba(5,9,10,.74) 0%, rgba(5,9,10,.26) 38%, transparent 60%),
+    linear-gradient(180deg, rgba(5,9,10,.80) 0%, rgba(5,9,10,.10) 22%, rgba(5,9,10,.14) 60%, rgba(5,9,10,.82) 100%),
+    radial-gradient(130% 90% at 62% 38%, transparent 34%, rgba(5,9,10,.44) 100%);
 }
 .stage__scrim::after{
   content:''; position:absolute; inset:0;
@@ -260,7 +261,7 @@ main > section[data-film]{ background:transparent; }
    the same measure as the rest of the page. */
 .chapter--hero{
   min-height:100svh; align-items:center;
-  padding:calc(var(--nav-h) + 7vh) 0 12vh;
+  padding:calc(var(--nav-h) + 7vh) 0 calc(var(--hud-h) + 6vh);
 }
 .hero__inner{ display:flex; flex-direction:column; gap:clamp(48px,9vh,116px); }
 .hero__type{ pointer-events:none; }
@@ -283,8 +284,8 @@ main > section[data-film]{ background:transparent; }
 }
 .hero__panel{
   width:min(410px, 100%); padding:30px 32px 32px;
-  background:linear-gradient(150deg, rgba(6,12,13,.66), rgba(6,12,13,.42) 46%, rgba(6,12,13,.62));
-  border-color:rgba(157,184,180,.26);
+  background:linear-gradient(150deg, rgba(6,12,13,.46), rgba(6,12,13,.24) 46%, rgba(6,12,13,.42));
+  border-color:rgba(157,184,180,.24);
 }
 .hero__panel .eyebrow{ color:rgba(230,233,231,.80); }
 .hero__panel h2{
@@ -293,15 +294,22 @@ main > section[data-film]{ background:transparent; }
 }
 .hero__panel-copy{ font-size:.9rem; color:rgba(230,233,231,.76); margin:0 0 22px; }
 
-.chapter--manifesto{ align-items:center; padding:13vh 0; }
+.chapter--manifesto{ align-items:center; padding:13vh 0 calc(var(--hud-h) + 7vh); }
 .chapter--manifesto .shell{ width:var(--shell); }
-.chapter--about{ align-items:center; padding:14vh 0 18vh; }
+.chapter--about{ align-items:center; padding:14vh 0 calc(var(--hud-h) + 10vh); }
 .reel__shell{ display:flex; justify-content:flex-end; }
 
-/* --- the read-out, shown only while a story beat is on screen ------------- */
+/* --- the read-out ---------------------------------------------------------
+   It is chrome, like the nav — fixed above the sections rather than behind
+   them. Underneath it was showing through every translucent panel it passed. */
 .stage__hud{
-  position:absolute; left:0; right:0; bottom:0; padding:0 var(--gut) 28px; z-index:6;
+  position:fixed; left:0; right:0; bottom:0; padding:0 var(--gut) 26px; z-index:50;
   pointer-events:none; opacity:0; transition:opacity .55s var(--ease);
+}
+.stage__hud::before{
+  content:''; position:absolute; left:0; right:0; bottom:0; height:190%;
+  background:linear-gradient(180deg, transparent, rgba(5,9,10,.72) 62%, rgba(5,9,10,.9));
+  z-index:-1;
 }
 .stage__hud.is-on{ opacity:1; }
 .hero__stagelabel{ display:flex; align-items:baseline; gap:14px; font-family:var(--mono); margin-bottom:14px; }
@@ -341,6 +349,12 @@ main > section[data-film]{ background:transparent; }
   font-size:clamp(.94rem,1.5vw,1.32rem); margin:0 0 clamp(44px,5.5vw,74px); max-width:32ch;
   text-wrap:balance;
 }
+.manifesto__text{ text-shadow:0 4px 34px rgba(5,9,10,.92), 0 1px 3px rgba(5,9,10,.7); }
+.manifesto__meta .v,.manifesto__meta .k,
+.faq summary,.faq details p,.faq__note,
+.cta__copy > p,.cta__list b,.cta__list span,.cta__title,
+.chapter--manifesto .eyebrow,.faq .eyebrow,.cta .eyebrow,.quotes .eyebrow,.valleys .eyebrow,
+.valleys .h2,.pin b,.pin i{ text-shadow:0 2px 22px rgba(5,9,10,.9); }
 .manifesto__text em{ font-style:italic; font-weight:600; color:var(--ember); }
 .manifesto__meta{ display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:26px; border-top:1px solid var(--hair); padding-top:28px; }
 .manifesto__meta .k{ display:block; font-family:var(--mono); font-size:10.5px; letter-spacing:.24em; color:var(--lichen); margin-bottom:8px; text-transform:uppercase; }
@@ -359,7 +373,8 @@ main > section[data-film]{ background:transparent; }
    05 · STATS
    ========================================================================= */
 /* a beat, not a slot: give the sequence room to read behind the numbers */
-.stats{ border-block:1px solid var(--hair); padding:clamp(84px,9vw,132px) 0;
+.stats{ border-block:1px solid var(--hair);
+  padding:clamp(84px,9vw,132px) 0 calc(var(--hud-h) + clamp(40px,5vw,72px));
   min-height:72svh; display:flex; align-items:center; }
 .stats .shell{ width:var(--shell); }
 .stat__num{ text-shadow:0 6px 40px rgba(5,9,10,.85); }
@@ -484,7 +499,7 @@ main > section[data-film]{ background:transparent; }
 /* =========================================================================
    10 · VALLEYS / RIDGE
    ========================================================================= */
-.valleys{ padding:clamp(140px,16vw,215px) 0 clamp(56px,7vw,100px); overflow:hidden; }
+.valleys{ padding:clamp(140px,16vw,215px) 0 calc(var(--hud-h) + clamp(40px,5vw,70px)); overflow:hidden; }
 .ridge{ position:relative; margin-top:clamp(24px,3vw,44px); }
 .valleys .h2{ margin-bottom:clamp(20px,2.5vw,34px); }
 /* preserveAspectRatio="none" means viewBox coordinates map linearly onto the
@@ -522,9 +537,9 @@ ul.pins[data-reveal].is-in{ opacity:1; transform:none; clip-path:none; }
 /* =========================================================================
    11 · QUOTES
    ========================================================================= */
-.quotes{ padding:clamp(150px,17vw,230px) 0; }
+.quotes{ padding:clamp(150px,17vw,230px) 0 calc(var(--hud-h) + clamp(80px,9vw,140px)); }
 /* the owners' words sit on the film; the cards carry their own ground */
-.quotes .quote{ backdrop-filter:blur(14px); background:rgba(11,18,20,.72); border-color:var(--hair); }
+.quotes .quote{ backdrop-filter:blur(16px); background:rgba(11,18,20,.55); border-color:var(--hair); }
 .quotes__grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:clamp(20px,2.4vw,32px); }
 .quote{ margin:0; padding:clamp(32px,3.4vw,46px); border:1px solid rgba(241,237,228,.14); border-radius:var(--r); background:var(--ink-2); }
 .quote blockquote{ margin:0 0 26px; font-family:var(--display); font-weight:500; letter-spacing:.006em; font-size:clamp(1rem,1.35vw,1.17rem); line-height:1.44; }
@@ -551,7 +566,7 @@ ul.pins[data-reveal].is-in{ opacity:1; transform:none; clip-path:none; }
 /* =========================================================================
    13 · FAQ
    ========================================================================= */
-.faq{ padding:clamp(130px,15vw,210px) 0; }
+.faq{ padding:clamp(130px,15vw,210px) 0 calc(var(--hud-h) + clamp(70px,8vw,130px)); }
 .faq__grid{ display:grid; grid-template-columns:.8fr 1.2fr; gap:clamp(36px,5vw,80px); align-items:start; }
 .faq__aside{ position:sticky; top:calc(var(--nav-h) + 6vh); }
 .faq__note{ color:rgba(241,237,228,.6); font-size:.94rem; max-width:30ch; }
@@ -574,7 +589,7 @@ ul.pins[data-reveal].is-in{ opacity:1; transform:none; clip-path:none; }
 /* =========================================================================
    14 · CTA
    ========================================================================= */
-.cta{ position:relative; overflow:hidden; padding:clamp(130px,15vw,210px) 0; }
+.cta{ position:relative; overflow:hidden; padding:clamp(130px,15vw,210px) 0 calc(var(--hud-h) + clamp(70px,8vw,130px)); }
 .cta__grid{ position:relative; z-index:2; display:grid; grid-template-columns:1fr 1fr; gap:clamp(36px,5vw,80px); align-items:start; }
 .cta__title{ font-family:var(--display); font-weight:800; letter-spacing:0; line-height:.98; font-size:clamp(1.6rem,2.7vw,2.3rem); margin:0 0 28px; }
 .cta__copy > p{ color:rgba(241,237,228,.78); max-width:44ch; font-size:.98rem; }
@@ -647,6 +662,16 @@ ul.pins[data-reveal].is-in{ opacity:1; transform:none; clip-path:none; }
   .split__frame{ aspect-ratio:16/10; }
   .reel__shell{ justify-content:center; }
 }
+@media (max-height:800px) and (min-width:721px){
+  .chapter--hero{ padding:calc(var(--nav-h) + 3vh) 0 calc(var(--hud-h) + 3vh); }
+  .hero__inner{ gap:clamp(22px,4vh,52px); }
+  .hero__panel{ padding:22px 26px 24px; }
+  .hero__panel-copy{ margin:0 0 16px; }
+  .hero__panel h2{ margin:0 0 10px; }
+  .chapter--manifesto{ padding:8vh 0 calc(var(--hud-h) + 4vh); }
+  .chapter--about{ padding:8vh 0 calc(var(--hud-h) + 5vh); }
+}
+
 @media (max-width:720px){
   :root{ --r:18px; --nav-h:66px; }
   .nav__cta{ display:none; }
