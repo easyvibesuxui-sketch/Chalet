@@ -1,5 +1,8 @@
 # CHALET — Alpine Villa Atelier
 
+**Live:** https://easyvibesuxui-sketch.github.io/Chalet/
+Published from this branch by `.github/workflows/pages.yml` on every push.
+
 A one-page landing site for a fictional company that builds **cozy luxury villas in the mountains**.
 Everything on the page is driven by scroll position — including the hero "video".
 
