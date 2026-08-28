@@ -1,7 +1,13 @@
 # CHALET — Alpine Villa Atelier
 
 **Live:** https://easyvibesuxui-sketch.github.io/Chalet/
-Published from this branch by `.github/workflows/pages.yml` on every push.
+
+Served by GitHub Pages straight from this branch — the repository root *is* the
+site, so there is no build step. `.nojekyll` stops Pages running Jekyll over it.
+
+One-time setup, in **Settings → Pages → Build and deployment**:
+Source **Deploy from a branch** · Branch `claude/scroll-animation-landing-69uxzl` · Folder `/ (root)`.
+Every push to the branch republishes it.
 
 A one-page landing site for a fictional company that builds **cozy luxury villas in the mountains**.
 Everything on the page is driven by scroll position — including the hero "video".
