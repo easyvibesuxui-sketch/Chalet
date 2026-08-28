@@ -15,23 +15,34 @@ page makes are the Unsplash photos it hotlinks. Open `index.html` and it runs.
 > that are painted onto a `<canvas>` — and a frame is only ever painted in response to a scroll
 > position. Stop scrolling and the build freezes exactly where you left it.
 
-The clip runs a villa from ink blueprint to finished winter chalet, so the scrub doubles as the
-company's story: scroll down and you literally build the house. A read-out in the corner tracks the
-stage — `BLUEPRINT → STRUCTURE → STONE & LARCH → GLASS & WARMTH → HOME`.
+There are two acts, and they hand over behind the Materials section:
+
+- **Act I — the drawing resolving.** `assets/frames/`, 80 frames.
+  `BLUEPRINT → STRUCTURE → STONE & LARCH → GLASS & WARMTH → DRAWN`
+- **Act II — the build itself.** `assets/frames-b/`, 64 frames.
+  `GROUNDWORKS → FRAME RAISED → ROOF & CLADDING → GLAZED → HANDOVER`
+
+Two canvases share the stage and swap at the midpoint of Materials. That section
+is opaque and so is the hearth below it, so the cut happens with the stage fully
+covered and is never seen. Act II is constructed lazily, two and a half viewports
+before it is needed — loading 64 more frames up front would compete with the
+opening act for bandwidth the reader needs immediately.
 
 The sequence is the page's spine, not a hero effect. `.stage` is fixed to the viewport and driven
 by page scroll; sections marked `data-film` are transparent and let it through, and every other
 section is opaque and covers it. So the backdrop returns six times between content, and the villa
 has visibly moved on at each return:
 
-| Beat | Section | Stage |
-|---|---|---|
-| 1 | Hero | BLUEPRINT |
-| 2 | Manifesto | BLUEPRINT |
-| 3 | About the Mountain | STRUCTURE |
-| 4 | Stats | STONE & LARCH |
-| 5 | Owners | GLASS & WARMTH |
-| 6 | Contact | HOME |
+| Beat | Section | Act | Stage |
+|---|---|---|---|
+| 1 | Hero | I | BLUEPRINT |
+| 2 | Manifesto | I | BLUEPRINT |
+| 3 | About the Mountain | I | STONE & LARCH |
+| 4 | Stats | I | DRAWN |
+| 5 | Owners | II | GROUNDWORKS |
+| 6 | Valleys | II | FRAME RAISED |
+| 7 | FAQ | II | ROOF & CLADDING |
+| 8 | Contact | II | GLAZED → HANDOVER |
 
 The beats are interleaved with content on purpose. Grouped together at the top they all fell inside
 the first few frames, and the villa then jumped from drafting paper to finished in one cut; spread

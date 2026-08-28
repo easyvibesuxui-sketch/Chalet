@@ -38,6 +38,7 @@
   window.addEventListener('resize', function () {
     vh = window.innerHeight; vw = window.innerWidth;
     if (scrubber) scrubber.resize();
+    if (scrubberB) scrubberB.resize();
     if (hgal) hgal.measure();
     measureArc();
   }, { passive: true });
@@ -53,12 +54,13 @@
   /* ---------------------------------------------------------------------
      2 · HERO FRAME SCRUBBER
      --------------------------------------------------------------------- */
-  var FRAME_COUNT = 80;
-  var framePath = function (i) {
-    return 'assets/frames/f' + String(i + 1).padStart(3, '0') + '.webp';
+  /* Two acts: the drawing resolving, then the build itself. */
+  var FILMS = {
+    a: { count: 80, path: function (i) { return 'assets/frames/f' + String(i + 1).padStart(3, '0') + '.webp'; } },
+    b: { count: 64, path: function (i) { return 'assets/frames-b/f' + String(i + 1).padStart(3, '0') + '.webp'; } }
   };
 
-  function Scrubber(canvas) {
+  function Scrubber(canvas, FRAME_COUNT, framePath) {
     var ctx = canvas.getContext('2d', { alpha: false });
     var frames = new Array(FRAME_COUNT);
     var ready = new Array(FRAME_COUNT).fill(false);
@@ -144,38 +146,67 @@
     this.resize();
   }
 
-  var scrubber = null;
-  var canvas = document.getElementById('heroCanvas');
+  var scrubber = null, scrubberB = null;
+  var canvasA = document.getElementById('canvasA');
+  var canvasB = document.getElementById('canvasB');
+  var canvas = canvasA;
   var filmScrim = document.getElementById('filmScrim');
   var hud = document.querySelector('.stage__hud');
   /* the story beats: transparent sections the fixed sequence shows through */
-  var beats = Array.prototype.slice.call(document.querySelectorAll('[data-film]'));
+  var beats  = Array.prototype.slice.call(document.querySelectorAll('[data-film]'));
+  var beatsA = beats.filter(function (e) { return e.getAttribute('data-film') !== 'b'; });
+  var beatsB = beats.filter(function (e) { return e.getAttribute('data-film') === 'b'; });
+  var handoff = document.querySelector('.materials');
 
   /* The arc runs from the top of the page to the bottom of the last beat, so
      the villa is finished exactly when the closing section arrives — not
      somewhere under the footer. Remeasured on resize and after images load. */
-  var arcEnd = 1;
+  var arcAEnd = 1, arcBStart = 0, arcBEnd = 1, cutTop = 0, cutLen = 1;
   function measureArc() {
-    if (!beats.length) return;
-    var last = beats[beats.length - 1].getBoundingClientRect();
-    arcEnd = Math.max(1, last.bottom + window.pageYOffset - vh * 0.55);
+    var y = window.pageYOffset;
+    if (beatsA.length) {
+      arcAEnd = Math.max(1, beatsA[beatsA.length - 1].getBoundingClientRect().bottom + y - vh * 0.55);
+    }
+    if (beatsB.length) {
+      arcBStart = beatsB[0].getBoundingClientRect().top + y - vh;
+      arcBEnd = Math.max(arcBStart + 1, beatsB[beatsB.length - 1].getBoundingClientRect().bottom + y - vh * 0.55);
+    }
+    if (handoff) {
+      var hr = handoff.getBoundingClientRect();
+      cutTop = hr.top + y;
+      cutLen = Math.max(1, hr.height);
+    }
   }
   measureArc();
   window.addEventListener('load', measureArc);
 
-  if (canvas && canvas.getContext) {
-    scrubber = new Scrubber(canvas);
+  /* Act II is built lazily — loading 64 more frames up front would compete
+     with the opening act for bandwidth the reader needs immediately. */
+  function ensureActB() {
+    if (!scrubberB && canvasB && canvasB.getContext) {
+      scrubberB = new Scrubber(canvasB, FILMS.b.count, FILMS.b.path);
+    }
+  }
+  if (canvasA && canvasA.getContext) {
+    scrubber = new Scrubber(canvasA, FILMS.a.count, FILMS.a.path);
   } else {
     document.documentElement.classList.add('no-canvas');
   }
 
   /* --- hero choreography ------------------------------------------------ */
-  var STAGES = [
+  var STAGES_A = [
     [0.00, 'BLUEPRINT'],
     [0.22, 'STRUCTURE'],
     [0.45, 'STONE & LARCH'],
     [0.68, 'GLASS & WARMTH'],
-    [0.88, 'HOME']
+    [0.88, 'DRAWN']
+  ];
+  var STAGES_B = [
+    [0.00, 'GROUNDWORKS'],
+    [0.26, 'FRAME RAISED'],
+    [0.52, 'ROOF & CLADDING'],
+    [0.76, 'GLAZED'],
+    [0.92, 'HANDOVER']
   ];
   var elStageName = document.getElementById('stageName');
   var elHeroRail = document.getElementById('heroRail');
@@ -188,9 +219,21 @@
   var lastStage = -1;
 
   if (beats.length) {
-    var beatOn = false;
+    var beatOn = false, actB = false;
     onScroll(function (y) {
-      var p = clamp(y / arcEnd, 0, 1);
+      /* which act is on stage — the hand-off happens behind Materials, which is
+         opaque, so the swap is never visible */
+      if (y > cutTop - vh * 2.5) ensureActB();
+      var mix = clamp((y - cutTop) / cutLen, 0, 1);
+      var onB = mix > 0.5;
+      if (onB !== actB) {
+        actB = onB;
+        if (canvasA) canvasA.classList.toggle('is-on', !onB);
+        if (canvasB) canvasB.classList.toggle('is-on', onB);
+      }
+      var STAGES = onB ? STAGES_B : STAGES_A;
+      var p = onB ? clamp((y - arcBStart) / (arcBEnd - arcBStart), 0, 1)
+                  : clamp(y / arcAEnd, 0, 1);
 
       /* the read-out belongs to the sequence, so it only shows over a beat */
       var vis = false;
@@ -201,7 +244,7 @@
       if (vis !== beatOn) { beatOn = vis; if (hud) hud.classList.toggle('is-on', vis); }
 
       /* Reduced motion: the villa is shown finished, never scrubbed. */
-      if (scrubber && !REDUCED) scrubber.seek(p);
+      if (!REDUCED) { if (onB) { if (scrubberB) scrubberB.seek(p); } else if (scrubber) scrubber.seek(p); }
 
       /* stage read-out */
       var s = REDUCED ? STAGES.length - 1 : 0;
@@ -672,9 +715,11 @@
     lastStage = STAGES.length - 1;
   }
   if (REDUCED && scrubber) {
+    if (canvasB) canvasB.classList.remove('is-on');
+    if (canvasA) canvasA.classList.add('is-on');
     var settle = setInterval(function () {
-      scrubber.draw(FRAME_COUNT - 1);
-      if (scrubber.loaded() >= FRAME_COUNT) clearInterval(settle);
+      scrubber.draw(FILMS.a.count - 1);
+      if (scrubber.loaded() >= FILMS.a.count) clearInterval(settle);
     }, 500);
     setTimeout(function () { clearInterval(settle); }, 15000);
   }

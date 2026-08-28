@@ -215,10 +215,14 @@ section[id]{ scroll-margin-top:calc(var(--nav-h) + 18px); }
    so the villa has moved on each time the backdrop returns.
    ========================================================================= */
 .stage{ position:fixed; inset:0; z-index:0; overflow:hidden; background:var(--ground); }
+/* Two acts share the stage: the drawing resolving, then the build itself.
+   They cross-fade behind the Materials section, which is opaque, so the cut is
+   never seen. */
 .stage__canvas{
   position:absolute; inset:0; width:100%; height:100%; display:block;
-  filter:saturate(.46) contrast(1.06);
+  filter:saturate(.46) contrast(1.06); opacity:0;
 }
+.stage__canvas.is-on{ opacity:1; }
 .stage__fallback{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0; }
 .no-canvas .stage__canvas{ display:none; }
 .no-canvas .stage__fallback{ opacity:1; }
@@ -486,8 +490,8 @@ main > section[data-film]{ background:transparent; }
 /* preserveAspectRatio="none" means viewBox coordinates map linearly onto the
    box, so a peak at (x,y) and a pin at (x/1200, y/320) always land together. */
 .ridge svg{ display:block; width:100%; height:clamp(260px,32vw,380px); }
-.ridge__far{ fill:rgba(47,74,58,.26); }
-.ridge__near{ fill:var(--ink-3); }
+.ridge__far{ fill:rgba(27,44,46,.42); }
+.ridge__near{ fill:rgba(11,18,20,.92); }
 .ridge__line{ fill:none; stroke:var(--lichen); stroke-width:1.5; stroke-linejoin:round; }
 
 .pins{ position:absolute; inset:0; list-style:none; margin:0; padding:0; }

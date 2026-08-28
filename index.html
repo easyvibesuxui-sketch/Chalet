@@ -69,7 +69,8 @@
      a scroll position.
      ========================================================================= -->
 <div class="stage" aria-hidden="true">
-  <canvas id="heroCanvas" class="stage__canvas"></canvas>
+  <canvas id="canvasA" class="stage__canvas is-on"></canvas>
+  <canvas id="canvasB" class="stage__canvas"></canvas>
   <img class="stage__fallback" id="heroFallback" src="assets/frames/f001.webp" alt="" />
   <div class="stage__scrim" id="filmScrim"></div>
   <div class="stage__grain"></div>
@@ -85,7 +86,7 @@
      The source clip is decoded to stills and painted on a single pinned canvas.
      Nothing plays on its own: a frame is only ever drawn for a scroll position.
      ========================================================================= -->
-<section class="chapter chapter--hero" id="hero" data-film>
+<section class="chapter chapter--hero" id="hero" data-film="a">
   <p class="hero__vertical" aria-hidden="true">A&nbsp;L&nbsp;P&nbsp;I&nbsp;N&nbsp;E&nbsp;&nbsp;&nbsp;A&nbsp;T&nbsp;E&nbsp;L&nbsp;I&nbsp;E&nbsp;R</p>
 
   <div class="shell hero__inner">
@@ -117,7 +118,7 @@
   </div>
 </section>
 
-<section class="chapter chapter--manifesto" id="atelier" data-film>
+<section class="chapter chapter--manifesto" id="atelier" data-film="a">
   <div class="shell">
 
 <p class="eyebrow" data-reveal>THE ATELIER</p>
@@ -182,7 +183,7 @@
   </div>
 </section>
 
-<section class="chapter chapter--about" id="about" data-film>
+<section class="chapter chapter--about" id="about" data-film="a">
   <div class="shell reel__shell">
 
 <div class="glass glass--soft about__frame" data-reveal="clip">
@@ -242,7 +243,7 @@
 </section>
 
 <!-- ============ 05 · STATS ============ -->
-<section class="stats" data-film>
+<section class="stats" data-film="a">
   <div class="shell stats__grid">
     <div class="stat" data-reveal><span class="stat__num" data-count="143">0</span><span class="stat__k">Villas delivered</span></div>
     <div class="stat" data-reveal data-delay="90"><span class="stat__num" data-count="27">0</span><span class="stat__k">Years at altitude</span></div>
@@ -300,7 +301,7 @@
 </section>
 
 <!-- ============ 11 · TESTIMONIALS ============ -->
-<section class="quotes" data-film>
+<section class="quotes" data-film="b">
   <div class="shell">
     <p class="eyebrow" data-reveal>OWNERS</p>
     <div class="quotes__grid">
@@ -321,7 +322,7 @@
 </section>
 
 <!-- ============ 10 · VALLEYS / DRAWN RIDGE ============ -->
-<section class="valleys" id="valleys">
+<section class="valleys" id="valleys" data-film="b">
   <div class="shell">
     <p class="eyebrow" data-reveal>WHERE WE BUILD</p>
     <h2 class="h2" data-split="word">Five valleys we know by heart</h2>
@@ -372,7 +373,7 @@
 </section>
 
 <!-- ============ 13 · FAQ ============ -->
-<section class="faq" id="faq">
+<section class="faq" id="faq" data-film="b">
   <div class="shell faq__grid">
     <div class="faq__aside">
       <p class="eyebrow" data-reveal>QUESTIONS</p>
@@ -390,7 +391,7 @@
 </section>
 
 <!-- ============ 14 · CTA / CONTACT ============ -->
-<section class="cta" id="contact" data-film>
+<section class="cta" id="contact" data-film="b">
   <div class="shell cta__grid">
     <div class="cta__copy">
       <p class="eyebrow eyebrow--light" data-reveal>START</p>
